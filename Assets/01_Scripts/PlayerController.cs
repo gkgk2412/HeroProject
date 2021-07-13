@@ -57,13 +57,10 @@ public class PlayerController : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
 
-        // 위, 아래 움직임 셋팅. 
-        MoveDir = new Vector3(horizontalMove, 0, verticalMove);
-        
-        if(GetDirection()) //대각선 이동일때는 속도 줄임
-            MoveDir *= speed / 1.5f;
-        else               // 대각선 이동 아닐때에는 스피드 증가.
-            MoveDir *= speed;
+        // 위, 아래 움직임 셋팅. 대각선 이동 속도맞추기 위해 정규화
+        MoveDir = new Vector3(horizontalMove, 0, verticalMove).normalized;
+
+        MoveDir *= speed;
     }
 
     void Rotation()
@@ -101,40 +98,5 @@ public class PlayerController : MonoBehaviour
             MoveDir.y = jumpSpeed;
             _charAnim.SetBool("isJump", true);
         }
-    }
-
-    bool GetDirection()
-    {
-        // 상하방향키 누르는지 여부, 좌우방향키 누르는지 여부
-        bool isHorizontal =false;
-        bool isVertical = false;
-
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
-        {
-            isHorizontal = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            isHorizontal = false;
-        }
-
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
-        {
-            isVertical = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.UpArrow) && Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            isVertical = false;
-        }
-
-        //대각선 이동일 경우
-        if (isHorizontal && isVertical)
-        {
-            return true;
-        }
-
-        return false;
     }
 }
