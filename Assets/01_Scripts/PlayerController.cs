@@ -5,22 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
-    private CharacterController controller; 
+    private CharacterController controller;
+    private Animator _charAnim;
 
     private float horizontalMove;
     private float verticalMove;
 
     /*-----------------캐릭터 상태값--------------------*/
-    public float speed;             // 캐릭터 움직임 스피드.
-    public float jumpSpeed;         // 캐릭터 점프 힘.
-    public float gravity;           // 캐릭터에게 작용하는 중력.
-    public float rotTime;           // 회전시간
-    private Vector3 MoveDir;        // 캐릭터의 움직이는 방향.
+    public float speed;                     // 캐릭터 움직임 스피드.
+    public float jumpSpeed;                 // 캐릭터 점프 힘.
+    public float gravity;                   // 캐릭터에게 작용하는 중력.
+    public float rotTime;                   // 회전시간
+    private Vector3 MoveDir;                // 캐릭터의 움직이는 방향.
 
     void Start()
     {
         MoveDir = Vector3.zero;
         controller = GetComponent<CharacterController>();
+        _charAnim = GetComponent<Animator>();
     }
 
     void Update()
@@ -32,6 +34,8 @@ public class PlayerController : MonoBehaviour
         // 현재 캐릭터가 땅에 있는가?
         if (controller.isGrounded)
         {
+            _charAnim.SetBool("isJump", false);
+
             Rotation();
             Move();
             Jump();
@@ -42,19 +46,24 @@ public class PlayerController : MonoBehaviour
 
         // 캐릭터 움직임.
         controller.Move(MoveDir * Time.deltaTime);
+
+        //조금이라도 움직임이 있을 경우 애니메이션 재생
+        _charAnim.SetFloat("Speed", MoveDir.magnitude);
     }
 
     void Move()
-    {       
+    {
         //player 상하좌우키 입력
         horizontalMove = Input.GetAxisRaw("Horizontal");
         verticalMove = Input.GetAxisRaw("Vertical");
 
         // 위, 아래 움직임 셋팅. 
         MoveDir = new Vector3(horizontalMove, 0, verticalMove);
-
-        // 스피드 증가.
-        MoveDir *= speed;
+        
+        if(GetDirection()) //대각선 이동일때는 속도 줄임
+            MoveDir *= speed / 1.5f;
+        else               // 대각선 이동 아닐때에는 스피드 증가.
+            MoveDir *= speed;
     }
 
     void Rotation()
@@ -88,6 +97,44 @@ public class PlayerController : MonoBehaviour
     {
         // 캐릭터 점프
         if (Input.GetButton("Jump"))
+        {
             MoveDir.y = jumpSpeed;
+            _charAnim.SetBool("isJump", true);
+        }
+    }
+
+    bool GetDirection()
+    {
+        // 상하방향키 누르는지 여부, 좌우방향키 누르는지 여부
+        bool isHorizontal =false;
+        bool isVertical = false;
+
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        {
+            isHorizontal = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftArrow) && Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            isHorizontal = false;
+        }
+
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+        {
+            isVertical = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.UpArrow) && Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            isVertical = false;
+        }
+
+        //대각선 이동일 경우
+        if (isHorizontal && isVertical)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

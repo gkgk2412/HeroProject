@@ -12,6 +12,7 @@ public class FPS : MonoBehaviour
 
     private void Start()
     {
+		Application.targetFrameRate = 60;
 		fFont_Size = fFont_Size == 0 ? 50 : fFont_Size;
     }
 

@@ -4,7 +4,8 @@
 AnimatorController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: only_showcase_atk
   serializedVersion: 5
   m_AnimatorParameters:
@@ -31,7 +32,8 @@ AnimatorController:
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
@@ -52,7 +54,8 @@ AnimatorStateTransition:
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
@@ -73,7 +76,8 @@ AnimatorStateTransition:
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
@@ -94,7 +98,8 @@ AnimatorStateTransition:
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
@@ -116,7 +121,8 @@ AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: ark1
   m_Speed: 1
   m_CycleOffset: 0
@@ -142,7 +148,8 @@ AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: atk3
   m_Speed: 1
   m_CycleOffset: 0
@@ -168,7 +175,8 @@ AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: atk2
   m_Speed: 1
   m_CycleOffset: 0
@@ -194,7 +202,8 @@ AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: idle2
   m_Speed: 1
   m_CycleOffset: 0
@@ -220,21 +229,22 @@ AnimatorStateMachine:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 110230402}
-    m_Position: {x: -240, y: 84, z: 0}
+    m_Position: {x: -440, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110258636}
-    m_Position: {x: -240, y: 144, z: 0}
+    m_Position: {x: -170, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110236182}
-    m_Position: {x: 0, y: 144, z: 0}
+    m_Position: {x: 130, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110290072}
-    m_Position: {x: 0, y: 84, z: 0}
+    m_Position: {x: 0, y: -80, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
