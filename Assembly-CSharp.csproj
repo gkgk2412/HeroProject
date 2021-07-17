@@ -65,7 +65,8 @@
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\CameraController.cs" />
     <Compile Include="Assets\01_Scripts\FPS.cs" />
-    <Compile Include="Assets\01_Scripts\PlayerController.cs" />
+    <Compile Include="Assets\01_Scripts\PlayerControlManager.cs" />
+    <Compile Include="Assets\01_Scripts\staminaBar.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\MecanimButton.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\controller.cs" />
