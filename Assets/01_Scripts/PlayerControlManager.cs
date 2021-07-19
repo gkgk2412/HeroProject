@@ -12,7 +12,6 @@ public class PlayerControlManager: MonoBehaviour
     private float verticalMove;
 
     /*--------------------------------------------캐릭터 속성값--------------------------------------------------*/
-    [Header("캐릭터 속성")]
     private Vector3 MoveDir;                                  // 캐릭터의 움직이는 방향.
 
     [SerializeField] private float speed;                     // 캐릭터에게 실제로 적용되는 스피드
