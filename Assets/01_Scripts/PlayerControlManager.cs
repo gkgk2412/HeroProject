@@ -6,39 +6,39 @@ public class PlayerControlManager: MonoBehaviour
 {
     // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
     private CharacterController controller;
-    private Animator _charAnim;
 
     private float horizontalMove;
     private float verticalMove;
 
     /*--------------------------------------------캐릭터 속성값--------------------------------------------------*/
-    private Vector3 MoveDir;                                  // 캐릭터의 움직이는 방향.
+    public float speed;                     // 캐릭터에게 실제로 적용되는 스피드
+    public float moveSpeed;                 // 캐릭터 움직임 스피드.
+    public float runSpeed;                  // 캐릭터 달리기 스피드.
+    public float gravity;                   // 캐릭터에게 작용하는 중력.
+    public float rotTime;                   // 회전시간
+    public float curStamina;                // 캐릭터의 스태미나
+    public float jumpSpeed;                 // 캐릭터 점프 힘.
 
-    [SerializeField] private float speed;                     // 캐릭터에게 실제로 적용되는 스피드
-    [SerializeField] private float moveSpeed;                 // 캐릭터 움직임 스피드.
-    [SerializeField] private float runSpeed;                  // 캐릭터 달리기 스피드.
-    [SerializeField] private float jumpSpeed;                 // 캐릭터 점프 힘.
-    [SerializeField] private float gravity;                   // 캐릭터에게 작용하는 중력.
-    [SerializeField] private float rotTime;                   // 회전시간
-    
-
-    public float curStamina;                                  // 캐릭터의 스태미나
+    public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
     /*-----------------------------------------------------------------------------------------------------------*/
 
-
-    enum PLAYERSTATE
-    {
-        IDLE = 0,
-        WALK,
-        JUMP,
-        RUN,
-        ATTACK
-    }
-
-    PLAYERSTATE pState;
-
+    CommandKey btnJump, btnRun;
 
     private static PlayerControlManager instance = null;
+
+    // 게임 매니저 인스턴스에 접근할 수 있는 프로퍼티, static으로 선언하여 다른 클래스에서 호출 가능함.
+    public static PlayerControlManager Instance
+    {
+        //get 으로 return된 instance (|| null) 를 받아옴
+        get
+        {
+            if (null == instance)
+                return null;
+
+            return instance;
+        }
+    }
+
 
     void Awake()
     {
@@ -64,7 +64,8 @@ public class PlayerControlManager: MonoBehaviour
         speed = moveSpeed;
         MoveDir = Vector3.zero;
         controller = GetComponent<CharacterController>();
-        _charAnim = GetComponent<Animator>();
+
+        SetCommand();
     }
 
     void Update()
@@ -76,7 +77,7 @@ public class PlayerControlManager: MonoBehaviour
         // 현재 캐릭터가 땅에 있는가?
         if (controller.isGrounded)
         {
-            ChangeAnimationState(PLAYERSTATE.JUMP, false);
+            PlayerAnimationController.Instance.ChangeAnimationState("JUMP", false);
             
             Move();
             Jump();
@@ -91,7 +92,7 @@ public class PlayerControlManager: MonoBehaviour
                 curStamina += 0.5f;
 
             speed = moveSpeed;
-            _charAnim.SetFloat("MoveAniSpeed", 1.0f);
+            PlayerAnimationController.Instance.ChangeAnimationState("NOTRUN", true);            
         }
 
         Rotation();
@@ -103,22 +104,14 @@ public class PlayerControlManager: MonoBehaviour
         controller.Move(MoveDir * Time.deltaTime);
 
         //조금이라도 움직임이 있을 경우 애니메이션 재생
-        ChangeAnimationState(PLAYERSTATE.WALK, true);
+        PlayerAnimationController.Instance.ChangeAnimationState("WALK", true);
     }
 
-    // 게임 매니저 인스턴스에 접근할 수 있는 프로퍼티, static으로 선언하여 다른 클래스에서 호출 가능함.
-    public static PlayerControlManager Instance
+    public void SetCommand()
     {
-        //get 으로 return된 instance (|| null) 를 받아옴
-        get
-        {
-            if (null == instance)
-                return null;
-
-            return instance;
-        }
+        btnJump = new JumpCommand(this);
+        btnRun = new RunCommand(this);
     }
-
 
     void Move()
     {
@@ -137,21 +130,16 @@ public class PlayerControlManager: MonoBehaviour
         //왼쪽 shift 키를 누르면 속도 올리기
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            speed = runSpeed;
-            _charAnim.SetFloat("MoveAniSpeed", 1.3f);
-
-            //스테미너 줄어들기
-            if (curStamina >= 0)
-                curStamina -= 1;
+            btnRun.Execute();          
         }
 
         else
         {
             speed = moveSpeed;
-            _charAnim.SetFloat("MoveAniSpeed", 1.0f);
+            PlayerAnimationController.Instance.ChangeAnimationState("NOTRUN", true);
 
             //스테미너 올라가기
-            if(curStamina <= 100)
+            if (curStamina <= 100)
                 curStamina += 0.5f;
         }
     }
@@ -186,27 +174,9 @@ public class PlayerControlManager: MonoBehaviour
     void Jump()
     {
         // 캐릭터 점프
-        if (Input.GetButton("Jump"))
+        if (Input.GetKey(KeyCode.Space))
         {
-            MoveDir.y = jumpSpeed;
-            ChangeAnimationState(PLAYERSTATE.JUMP, true);
-        }
-    }
-
-    void ChangeAnimationState(PLAYERSTATE pState, bool isbool)
-    {
-        switch(pState)
-        {
-            case PLAYERSTATE.JUMP:
-                {
-                    _charAnim.SetBool("isJump", isbool);
-                    break;
-                }
-            case PLAYERSTATE.WALK:
-                {
-                    _charAnim.SetFloat("Speed", MoveDir.magnitude);
-                    break;
-                }
+            btnJump.Execute();
         }
     }
 }

@@ -64,7 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\CameraController.cs" />
+    <Compile Include="Assets\01_Scripts\Command\CommandKey.cs" />
+    <Compile Include="Assets\01_Scripts\Command\JumpCommand.cs" />
+    <Compile Include="Assets\01_Scripts\Command\RunCommand.cs" />
     <Compile Include="Assets\01_Scripts\FPS.cs" />
+    <Compile Include="Assets\01_Scripts\PlayerAnimationController.cs" />
     <Compile Include="Assets\01_Scripts\PlayerControlManager.cs" />
     <Compile Include="Assets\01_Scripts\staminaBar.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\MecanimButton.cs" />

@@ -9730,16 +9730,29 @@ MonoBehaviour:
   speed: 0
   moveSpeed: 3
   runSpeed: 4.5
-  jumpSpeed: 3
   gravity: 0
   rotTime: 10
   curStamina: 100
+  jumpSpeed: 3
+  MoveDir: {x: 0, y: 0, z: 0}
 --- !u!4 &1581957731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 454324, guid: 9c749916ea37807468429b3e8fb63bf0,
     type: 3}
   m_PrefabInstance: {fileID: 1522835289}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1581957732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581957726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72df4708d1595b04581768e602f71704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1582484233
 PrefabInstance:
   m_ObjectHideFlags: 0

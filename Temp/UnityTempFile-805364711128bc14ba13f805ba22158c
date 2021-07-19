@@ -290,6 +290,7 @@
 /define:CSHARP_7_OR_LATER
 /define:CSHARP_7_3_OR_NEWER
 Assets\01_Scripts\CameraController.cs
+Assets\01_Scripts\CammandKey.cs
 Assets\01_Scripts\FPS.cs
 Assets\01_Scripts\PlayerControlManager.cs
 Assets\01_Scripts\staminaBar.cs
