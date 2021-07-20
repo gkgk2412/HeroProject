@@ -22,7 +22,7 @@ public class PlayerControlManager: MonoBehaviour
     public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
     /*-----------------------------------------------------------------------------------------------------------*/
 
-    CommandKey btnJump, btnRun;
+    CommandKey btnJump, btnRun, btnInteract;
 
     private static PlayerControlManager instance = null;
 
@@ -82,6 +82,7 @@ public class PlayerControlManager: MonoBehaviour
             Move();
             Jump();
             Run();
+            Interact();
         }
 
         //스태미너를 다 사용했다면
@@ -111,6 +112,7 @@ public class PlayerControlManager: MonoBehaviour
     {
         btnJump = new JumpCommand(this);
         btnRun = new RunCommand(this);
+        btnInteract = new interactiveCommand(this);
     }
 
     void Move()
@@ -177,6 +179,14 @@ public class PlayerControlManager: MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             btnJump.Execute();
+        }
+    }
+
+    void Interact()
+    {
+        if (Input.GetKey(KeyCode.F))
+        {
+            btnInteract.Execute();
         }
     }
 }
