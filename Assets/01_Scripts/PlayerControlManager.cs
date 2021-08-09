@@ -22,11 +22,11 @@ public class PlayerControlManager: MonoBehaviour
     public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
     /*-----------------------------------------------------------------------------------------------------------*/
 
-    CommandKey btnJump, btnRun, btnInteract;
+    CommandKey btnJump, btnRun;
 
     private static PlayerControlManager instance = null;
 
-    // 게임 매니저 인스턴스에 접근할 수 있는 프로퍼티, static으로 선언하여 다른 클래스에서 호출 가능함.
+    // 인스턴스에 접근할 수 있는 프로퍼티, static으로 선언하여 다른 클래스에서 호출 가능함.
     public static PlayerControlManager Instance
     {
         //get 으로 return된 instance (|| null) 를 받아옴
@@ -70,49 +70,51 @@ public class PlayerControlManager: MonoBehaviour
 
     void Update()
     {
-        //방향키가 아닌 WSAD는 return
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-            return;
+        if (GameManager.Instance.CheckPlayerState() == "LIVE")
+        { 
+            //방향키가 아닌 WSAD는 return
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+                return;
 
-        // 현재 캐릭터가 땅에 있는가?
-        if (controller.isGrounded)
-        {
-            PlayerAnimationController.Instance.ChangeAnimationState("JUMP", false);
-            
-            Move();
-            Jump();
-            Run();
-            Interact();
+            // 현재 캐릭터가 땅에 있는가?
+            if (controller.isGrounded)
+            {
+                PlayerAnimationController.Instance.ChangeAnimationState("JUMP", false);
+
+                Move();
+                Jump();
+                Run();
+            }
+
+            //스태미너를 다 사용했다면
+            if (curStamina <= 0)
+            {
+                //스테미너 올라가기
+                if (curStamina <= 100)
+                    curStamina += 0.5f;
+
+                speed = moveSpeed;
+                PlayerAnimationController.Instance.ChangeAnimationState("NOTRUN", true);
+            }
+
+            Rotation();
+
+            // 캐릭터에 중력 적용.
+            MoveDir.y -= gravity * Time.deltaTime;
+
+            // 캐릭터 움직임.
+            controller.Move(MoveDir * Time.deltaTime);
+
+            //조금이라도 움직임이 있을 경우 애니메이션 재생
+            PlayerAnimationController.Instance.ChangeAnimationState("WALK", true);
+
         }
-
-        //스태미너를 다 사용했다면
-        if(curStamina <= 0)
-        {
-            //스테미너 올라가기
-            if (curStamina <= 100)
-                curStamina += 0.5f;
-
-            speed = moveSpeed;
-            PlayerAnimationController.Instance.ChangeAnimationState("NOTRUN", true);            
-        }
-
-        Rotation();
-
-        // 캐릭터에 중력 적용.
-        MoveDir.y -= gravity * Time.deltaTime;
-
-        // 캐릭터 움직임.
-        controller.Move(MoveDir * Time.deltaTime);
-
-        //조금이라도 움직임이 있을 경우 애니메이션 재생
-        PlayerAnimationController.Instance.ChangeAnimationState("WALK", true);
     }
 
     public void SetCommand()
     {
         btnJump = new JumpCommand(this);
         btnRun = new RunCommand(this);
-        btnInteract = new interactiveCommand(this);
     }
 
     void Move()
@@ -179,14 +181,6 @@ public class PlayerControlManager: MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             btnJump.Execute();
-        }
-    }
-
-    void Interact()
-    {
-        if (Input.GetKey(KeyCode.F))
-        {
-            btnInteract.Execute();
         }
     }
 }

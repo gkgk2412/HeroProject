@@ -24,6 +24,13 @@ public class PlayerAnimationController : MonoBehaviour
     {
         switch (state)
         {
+            case "IDLE":
+                {
+                    _charAnim.SetFloat("Speed", 0.0f);
+                    _charAnim.SetBool("isJump", isbool);
+                    break;
+                }
+
             case "JUMP":
                 {
                     _charAnim.SetBool("isJump", isbool);

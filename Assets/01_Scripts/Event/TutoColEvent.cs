@@ -1,0 +1,44 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TutoColEvent : MonoBehaviour
+{
+    private Animator _knightAnim;
+    private Animator _knightAnim2;
+    public GameObject _knight;
+    public GameObject _knight2;
+
+    private void Start()
+    {
+        _knightAnim = _knight.GetComponent<Animator>();
+        _knightAnim2 = _knight2.GetComponent<Animator>();
+    }
+
+    public void tutoColEventFunc()
+    {
+        if(!GameManager.Instance.GetQuestCheck())
+        {
+            CamShake.Instance.InCameraShake(0.2f, 0.15f);
+
+            //플레이어 멈추고, IDLE로 애니메이션 변경
+            GameManager.Instance.PlayerStateChange("STOP");
+            PlayerAnimationController.Instance.ChangeAnimationState("IDLE", false);
+
+            //경비병 애니메이션 변경
+            _knightAnim.SetBool("isAttackCol", true);
+            _knightAnim2.SetBool("isAttackCol", true);
+
+            //경비병의 칼 휘두르는 애니메이션 종료되면 idle로 다시 변경...
+            Invoke("WaitAnim", 0.3f);
+
+            GameManager.Instance.PlayerStateChange("LIVE");
+        }        
+    }
+
+    public void WaitAnim()
+    {        
+        _knightAnim.SetBool("isAttackCol", false);
+        _knightAnim2.SetBool("isAttackCol", false);
+    }
+}

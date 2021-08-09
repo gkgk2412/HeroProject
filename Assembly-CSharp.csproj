@@ -63,15 +63,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\01_Scripts\CameraController.cs" />
+    <Compile Include="Assets\01_Scripts\Camera\CamShake.cs" />
+    <Compile Include="Assets\01_Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\01_Scripts\Command\CommandKey.cs" />
     <Compile Include="Assets\01_Scripts\Command\JumpCommand.cs" />
-    <Compile Include="Assets\01_Scripts\Command\RunCommand.cs" />
-    <Compile Include="Assets\01_Scripts\Command\interactiveCommand.cs" />
     <Compile Include="Assets\01_Scripts\CoroutineManager.cs" />
+    <Compile Include="Assets\01_Scripts\Dialogue\DataBaseManager.cs" />
+    <Compile Include="Assets\01_Scripts\Dialogue\Dialogue.cs" />
+    <Compile Include="Assets\01_Scripts\Dialogue\DialogueManager.cs" />
+    <Compile Include="Assets\01_Scripts\Dialogue\DialogueParser.cs" />
+    <Compile Include="Assets\01_Scripts\Dialogue\InteractiveDialogueEvent.cs" />
+    <Compile Include="Assets\01_Scripts\Event\InteractUI.cs" />
+    <Compile Include="Assets\01_Scripts\Event\PlayerColliderEvent.cs" />
+    <Compile Include="Assets\01_Scripts\Event\TutoColEvent.cs" />
+    <Compile Include="Assets\01_Scripts\Event\interactiveEvent.cs" />
     <Compile Include="Assets\01_Scripts\FPS.cs" />
+    <Compile Include="Assets\01_Scripts\GameManager.cs" />
     <Compile Include="Assets\01_Scripts\PlayerAnimationController.cs" />
     <Compile Include="Assets\01_Scripts\PlayerControlManager.cs" />
+    <Compile Include="Assets\01_Scripts\RunCommand.cs" />
     <Compile Include="Assets\01_Scripts\staminaBar.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\MecanimButton.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\ThirdPersonCamera.cs" />

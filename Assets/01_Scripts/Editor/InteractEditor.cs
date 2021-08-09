@@ -1,13 +1,13 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(interactiveCommand)), CanEditMultipleObjects]
+[CustomEditor(typeof(InteractUI)), CanEditMultipleObjects]
 public class InteractEditor : Editor
 {
 	public override void OnInspectorGUI()
 	{
 		serializedObject.Update();
-		interactiveCommand script = target as interactiveCommand;
+		InteractUI script = target as InteractUI;
 
 		CustomEditorList.Show(serializedObject.FindProperty("objType"));
 		CustomEditorList.Show(serializedObject.FindProperty("Player"));
