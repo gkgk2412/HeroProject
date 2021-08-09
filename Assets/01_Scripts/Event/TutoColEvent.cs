@@ -9,6 +9,8 @@ public class TutoColEvent : MonoBehaviour
     public GameObject _knight;
     public GameObject _knight2;
 
+    public BoxCollider _tutoBoxCol;
+
     private void Start()
     {
         _knightAnim = _knight.GetComponent<Animator>();
@@ -17,6 +19,7 @@ public class TutoColEvent : MonoBehaviour
 
     public void tutoColEventFunc()
     {
+        //메인 퀘스트를 받지 않았을 경우
         if(!GameManager.Instance.GetQuestCheck())
         {
             CamShake.Instance.InCameraShake(0.2f, 0.15f);
@@ -33,7 +36,14 @@ public class TutoColEvent : MonoBehaviour
             Invoke("WaitAnim", 0.3f);
 
             GameManager.Instance.PlayerStateChange("LIVE");
-        }        
+        }
+
+        //메인 퀘스트를 받았을 경우
+        if (GameManager.Instance.GetQuestCheck())
+        {
+            //가로막는 콜라이더를 해제
+            _tutoBoxCol.enabled = false;
+        }
     }
 
     public void WaitAnim()

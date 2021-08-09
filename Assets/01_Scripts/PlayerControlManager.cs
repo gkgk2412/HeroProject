@@ -20,6 +20,9 @@ public class PlayerControlManager: MonoBehaviour
     public float jumpSpeed;                 // 캐릭터 점프 힘.
 
     public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
+
+    private float health;                   // 캐릭터의 체력
+    private float gold;                     // 캐릭터가 가진 골드
     /*-----------------------------------------------------------------------------------------------------------*/
 
     CommandKey btnJump, btnRun;
