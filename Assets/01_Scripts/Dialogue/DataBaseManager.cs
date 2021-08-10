@@ -14,14 +14,14 @@ public class DataBaseManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance ==null)
+        if(instance == null)
         {
             instance = this;
 
             DialogueParser theParser = GetComponent<DialogueParser>();
             Dialogue[] dialogues = theParser.Parse(csv_FileName);
 
-            for(int i = 0; i < dialogues.Length; ++i)
+            for (int i = 0; i < dialogues.Length; ++i)
             {
                 dialogueDic.Add(i + 1, dialogues[i]);
             }

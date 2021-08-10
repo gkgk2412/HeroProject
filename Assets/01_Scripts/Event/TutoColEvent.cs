@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TutoColEvent : MonoBehaviour
 {
+    DialogueManager theDM;
+
     private Animator _knightAnim;
     private Animator _knightAnim2;
     public GameObject _knight;
@@ -13,6 +15,7 @@ public class TutoColEvent : MonoBehaviour
 
     private void Start()
     {
+        theDM = FindObjectOfType<DialogueManager>();
         _knightAnim = _knight.GetComponent<Animator>();
         _knightAnim2 = _knight2.GetComponent<Animator>();
     }
@@ -22,6 +25,10 @@ public class TutoColEvent : MonoBehaviour
         //메인 퀘스트를 받지 않았을 경우
         if(!GameManager.Instance.GetQuestCheck())
         {
+            string message = "메인 퀘스트를 먼저 받아주세요!";
+
+            FloatingTextManager.instance.CreateFloatingText(this.transform.position, message);
+
             CamShake.Instance.InCameraShake(0.2f, 0.15f);
 
             //플레이어 멈추고, IDLE로 애니메이션 변경

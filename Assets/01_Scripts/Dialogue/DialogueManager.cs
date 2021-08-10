@@ -79,7 +79,9 @@ public class DialogueManager : MonoBehaviour
         isNext = false;
 
         SettingUI(false);
-        _kingScr.ExecuteKing();
+
+        if(GameManager.Instance.GetQuestCheck())
+            _kingScr.ExecuteKing();
     }
 
     IEnumerator TypeWriter()
