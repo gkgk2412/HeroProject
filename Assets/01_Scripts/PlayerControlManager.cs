@@ -17,12 +17,12 @@ public class PlayerControlManager: MonoBehaviour
     public float gravity;                   // 캐릭터에게 작용하는 중력.
     public float rotTime;                   // 회전시간
     public float curStamina;                // 캐릭터의 스태미나
+    public float curHealth;                // 캐릭터의 체력
     public float jumpSpeed;                 // 캐릭터 점프 힘.
 
     public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
 
-    private float health;                   // 캐릭터의 체력
-    private float gold;                     // 캐릭터가 가진 골드
+    private int gold;                     // 캐릭터가 가진 골드
     /*-----------------------------------------------------------------------------------------------------------*/
 
     CommandKey btnJump, btnRun;
@@ -185,5 +185,15 @@ public class PlayerControlManager: MonoBehaviour
         {
             btnJump.Execute();
         }
+    }
+
+    public int GetGold()
+    {
+        return gold;
+    }
+
+    public void SetGold(int _gold)
+    {
+        gold = _gold;
     }
 }
