@@ -65,6 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\BarUI\HPBar.cs" />
     <Compile Include="Assets\01_Scripts\BarUI\staminaBar.cs" />
+    <Compile Include="Assets\01_Scripts\ButtonUI\QuestInfoBut.cs" />
+    <Compile Include="Assets\01_Scripts\ButtonUI\SubQuestBnt.cs" />
+    <Compile Include="Assets\01_Scripts\ButtonUI\SubQuestText.cs" />
     <Compile Include="Assets\01_Scripts\Camera\CamShake.cs" />
     <Compile Include="Assets\01_Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\01_Scripts\Command\CommandKey.cs" />
@@ -88,7 +91,6 @@
     <Compile Include="Assets\01_Scripts\Quest\QuestGiver.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestLog.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestScript.cs" />
-    <Compile Include="Assets\01_Scripts\QuestInfoBut.cs" />
     <Compile Include="Assets\01_Scripts\RunCommand.cs" />
     <Compile Include="Assets\01_Scripts\Text\BoardMainQ.cs" />
     <Compile Include="Assets\01_Scripts\Text\CoinText.cs" />

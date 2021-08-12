@@ -16,6 +16,9 @@ public class QuestLog : MonoBehaviour
     [SerializeField]
     private Text questDescription;
 
+    [SerializeField]
+    private Text subQuestDescription;
+
     private static QuestLog instance;
 
     public static QuestLog Instance
@@ -48,7 +51,7 @@ public class QuestLog : MonoBehaviour
             selected.MyQuestScript.DeSelect();
         }
 
-        string objectives = "\nObjectives\n";
+        string objectives = string.Empty;
 
         selected = quest;
 
@@ -56,10 +59,10 @@ public class QuestLog : MonoBehaviour
 
         foreach (Objective obj in quest.MyCollectObjectives)
         {
-            objectives += obj.MyType + ":" + obj.MyAmount + "/" + obj.MyAmount + "\n";
+            objectives += obj.MyType + " : " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
         }
 
         //questDescription.text = string.Format("<b>{0}</b>\n\n<size=40>{1}</size>", title, quest.MyDescription);
-        questDescription.text = string.Format("<b>{0}</b>\n\n<size=40>{1}</size>{2}", title, quest.MyDescription, objectives);
+        questDescription.text = string.Format("<b>{0}</b>\n\n<size=40>{1}</size>\n\n진행사항\n<size=40>{2}</size>", title, quest.MyDescription, objectives);
     }
 }

@@ -69,19 +69,28 @@ public class InteractUI : MonoBehaviour
 
     public void OnEventBoard()
     {
+        //UI창이 켜짐으로 바꿔줌.
+        GameManager.Instance.SetUiWindowCheck(true);
+
         _board.SetActive(true);
         text.SetActive(false);
         isEventOn = true;
     }
 
     public void OffEventBoard()
-    {
+    {       
+        //UI창이 꺼짐으로 바꿔줌.
+        GameManager.Instance.SetUiWindowCheck(false);
+
         _board.SetActive(false);
         isEventOn = false;
     }
 
     public void OnEventKing()
     {
+        //UI창이 켜짐으로 바꿔줌.
+        GameManager.Instance.SetUiWindowCheck(true);
+
         GameManager.Instance.SetQusetCheck(true);
         theDM.showDialogue(_king.transform.GetComponent<InteractiveDialogueEvent>().GetDialogue());
         text.SetActive(false);
@@ -90,6 +99,8 @@ public class InteractUI : MonoBehaviour
 
     public void OffEventKing()
     {
+        //UI창이 꺼짐으로 바꿔줌.
+        GameManager.Instance.SetUiWindowCheck(false);
         GameManager.Instance.SetQusetCheck(true);
     }
 

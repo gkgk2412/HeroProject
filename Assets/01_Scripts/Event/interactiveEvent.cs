@@ -47,9 +47,13 @@ public class interactiveEvent : MonoBehaviour
         }
         else
         {
-            InteractionBoardOn();
-            GameManager.Instance.PlayerStateChange("STOP");
-            isInteractKeyDown = true;
+            // 다른 UI창이 띄워지지 않았을 경우
+            if (!GameManager.Instance.GetUiWindowCheck())
+            {
+                InteractionBoardOn();
+                GameManager.Instance.PlayerStateChange("STOP");
+                isInteractKeyDown = true;
+            }
         }
     }
 
@@ -64,10 +68,14 @@ public class interactiveEvent : MonoBehaviour
         }
         else
         {
-            InteractionKingOn();
-            GameManager.Instance.PlayerStateChange("STOP");
-            PlayerAnimationController.Instance.ChangeAnimationState("IDLE", false);
-            isInteractKeyDown = true;
+            // 다른 UI창이 띄워지지 않았을 경우
+            if (!GameManager.Instance.GetUiWindowCheck())
+            {
+                InteractionKingOn();
+                GameManager.Instance.PlayerStateChange("STOP");
+                PlayerAnimationController.Instance.ChangeAnimationState("IDLE", false);
+                isInteractKeyDown = true;
+            }
         }
     }
 

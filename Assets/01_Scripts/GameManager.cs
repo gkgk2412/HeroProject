@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
-    private bool isGetQuest = false; //왕에게서 받는 메인 퀘스트 받았는지 여부를 체크함
+    private bool isGetQuest = false;         //왕에게서 받는 메인 퀘스트 받았는지 여부를 체크함
+    private bool isUiWindowOpen = false;     //UI 윈도우가 띄워져있는지 (한 윈도우가 띄워져있으면 다른 윈도우는 나오지 않도록 한다.)
+    private bool[] subQuestArray = { false, false, false }; 
 
     // 인스턴스에 접근할 수 있는 프로퍼티, static으로 선언하여 다른 클래스에서 호출 가능함.
     public static GameManager Instance
@@ -124,5 +126,25 @@ public class GameManager : MonoBehaviour
     public void SetQusetCheck(bool isbool)
     {
         isGetQuest = isbool;
+    }
+    
+    public bool GetUiWindowCheck()
+    {
+        return isUiWindowOpen;
+    }
+
+    public void SetUiWindowCheck(bool isbool)
+    {
+        isUiWindowOpen = isbool;
+    }
+
+    public bool GetsubQuestArray(int index)
+    {
+        return subQuestArray[index];
+    }
+
+    public void SetsubQuestArray(int index, bool isbool)
+    {
+        subQuestArray[index] = isbool;
     }
 }
