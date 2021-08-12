@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InteractUI : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class InteractUI : MonoBehaviour
 
     private bool isEventOn = false;
     private bool isRange = false;
+
+    public UnityEvent _mainQEvent;
 
     internal static class YieldInstructionCache
     {
@@ -38,7 +41,7 @@ public class InteractUI : MonoBehaviour
 
     private IEnumerator InteractiveUI()
     {
-        //플레이어와 문사이의 거리를 저장할 float 형 변수
+        //플레이어와 물체사이의 거리를 저장할 float 형 변수
         float objLength = 0;
 
         while (true)
@@ -91,6 +94,7 @@ public class InteractUI : MonoBehaviour
         //UI창이 켜짐으로 바꿔줌.
         GameManager.Instance.SetUiWindowCheck(true);
 
+        EventMain();
         GameManager.Instance.SetQusetCheck(true);
         theDM.showDialogue(_king.transform.GetComponent<InteractiveDialogueEvent>().GetDialogue());
         text.SetActive(false);
@@ -101,7 +105,6 @@ public class InteractUI : MonoBehaviour
     {
         //UI창이 꺼짐으로 바꿔줌.
         GameManager.Instance.SetUiWindowCheck(false);
-        GameManager.Instance.SetQusetCheck(true);
     }
 
     public bool RangeCheck()
@@ -112,5 +115,10 @@ public class InteractUI : MonoBehaviour
         }
         else
             return isRange;
+    }
+
+    public void EventMain()
+    {
+        _mainQEvent.Invoke();
     }
 }

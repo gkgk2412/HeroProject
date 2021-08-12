@@ -62,7 +62,6 @@ public class QuestLog : MonoBehaviour
             objectives += obj.MyType + " : " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
         }
 
-        //questDescription.text = string.Format("<b>{0}</b>\n\n<size=40>{1}</size>", title, quest.MyDescription);
         questDescription.text = string.Format("<b>{0}</b>\n\n<size=40>{1}</size>\n\n진행사항\n<size=40>{2}</size>", title, quest.MyDescription, objectives);
     }
 }

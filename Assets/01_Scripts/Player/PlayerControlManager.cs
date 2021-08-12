@@ -25,7 +25,7 @@ public class PlayerControlManager: MonoBehaviour
     private int gold;                     // 캐릭터가 가진 골드
     /*-----------------------------------------------------------------------------------------------------------*/
 
-    CommandKey btnJump, btnRun;
+    CommandKey btnJump, btnRun, btnAttack;
 
     private static PlayerControlManager instance = null;
 
@@ -73,7 +73,7 @@ public class PlayerControlManager: MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.CheckPlayerState() == "LIVE")
+        if (GameManager.Instance.CheckPlayerState() == "LIVE" || GameManager.Instance.CheckPlayerState() == "LIVE_ATTACK")
         { 
             //방향키가 아닌 WSAD는 return
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
@@ -81,12 +81,17 @@ public class PlayerControlManager: MonoBehaviour
 
             // 현재 캐릭터가 땅에 있는가?
             if (controller.isGrounded)
-            {
-                PlayerAnimationController.Instance.ChangeAnimationState("JUMP", false);
+            { 
+                if(GameManager.Instance.CheckPlayerState() != "LIVE_ATTACK")
+                {
+                    PlayerAnimationController.Instance.ChangeAnimationState("JUMP", false);
 
-                Move();
-                Jump();
-                Run();
+                    Move();
+                    Jump();
+                    Run();
+                }
+
+                Attack();
             }
 
             //스태미너를 다 사용했다면
@@ -100,17 +105,19 @@ public class PlayerControlManager: MonoBehaviour
                 PlayerAnimationController.Instance.ChangeAnimationState("NOTRUN", true);
             }
 
-            Rotation();
+            if (GameManager.Instance.CheckPlayerState() != "LIVE_ATTACK")
+            {
+                Rotation();
 
-            // 캐릭터에 중력 적용.
-            MoveDir.y -= gravity * Time.deltaTime;
+                // 캐릭터에 중력 적용.
+                MoveDir.y -= gravity * Time.deltaTime;
 
-            // 캐릭터 움직임.
-            controller.Move(MoveDir * Time.deltaTime);
+                // 캐릭터 움직임.
+                controller.Move(MoveDir * Time.deltaTime);
 
-            //조금이라도 움직임이 있을 경우 애니메이션 재생
-            PlayerAnimationController.Instance.ChangeAnimationState("WALK", true);
-
+                //조금이라도 움직임이 있을 경우 애니메이션 재생
+                PlayerAnimationController.Instance.ChangeAnimationState("WALK", true);
+            }
         }
     }
 
@@ -118,6 +125,7 @@ public class PlayerControlManager: MonoBehaviour
     {
         btnJump = new JumpCommand(this);
         btnRun = new RunCommand(this);
+        btnAttack = new AttackCommand(this);
     }
 
     void Move()
@@ -187,6 +195,23 @@ public class PlayerControlManager: MonoBehaviour
         }
     }
 
+    void Attack()
+    {
+        //화살쏘기
+        if(Input.GetKey(KeyCode.E) && GameManager.Instance.CheckPlayerState() != "LIVE_ATTACK")
+        {
+            btnAttack.Execute();
+            Invoke("AttackEndEvent", 0.8f);
+        }
+    }
+
+    public void AttackEndEvent()
+    {
+        GameManager.Instance.PlayerStateChange("LIVE");
+        PlayerAnimationController.Instance.ChangeAnimationState("ATTACK", false);
+    }
+
+    //* Gold System *//
     public int GetGold()
     {
         return gold;

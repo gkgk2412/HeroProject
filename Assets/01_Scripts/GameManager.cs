@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     enum PLAYERSTATE
     {
         LIVE = 0,
+        LIVE_ATTACK,
         STOP,
         DIE
     }
@@ -64,6 +65,12 @@ public class GameManager : MonoBehaviour
             case PLAYERSTATE.LIVE:
                 {
                     playerStateName = "LIVE";
+                    return playerStateName;
+                }
+
+            case PLAYERSTATE.LIVE_ATTACK:
+                {
+                    playerStateName = "LIVE_ATTACK";
                     return playerStateName;
                 }
 
@@ -95,6 +102,12 @@ public class GameManager : MonoBehaviour
             case "LIVE":
                 {
                     playerState = PLAYERSTATE.LIVE;
+                    break;
+                } 
+            
+            case "LIVE_ATTACK":
+                {
+                    playerState = PLAYERSTATE.LIVE_ATTACK;
                     break;
                 }
 

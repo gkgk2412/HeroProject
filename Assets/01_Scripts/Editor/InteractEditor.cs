@@ -25,6 +25,7 @@ public class InteractEditor : Editor
 			CustomEditorList.Show(serializedObject.FindProperty("text"));
 			CustomEditorList.Show(serializedObject.FindProperty("InteractiveLength"));
 			CustomEditorList.Show(serializedObject.FindProperty("minLength"));
+			CustomEditorList.Show(serializedObject.FindProperty("_mainQEvent"));
 		}
 
 		serializedObject.ApplyModifiedProperties();

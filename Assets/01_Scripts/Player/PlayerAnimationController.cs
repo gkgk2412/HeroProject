@@ -53,6 +53,12 @@ public class PlayerAnimationController : MonoBehaviour
                     _charAnim.SetFloat("MoveAniSpeed", 1.0f);
                     break;
                 }
+
+            case "ATTACK":
+                {
+                    _charAnim.SetBool("isAttack", isbool);
+                    break;
+                }
         }
     }
 }
