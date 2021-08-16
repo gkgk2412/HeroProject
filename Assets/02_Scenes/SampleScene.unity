@@ -2030,7 +2030,38 @@ MonoBehaviour:
   - tag: spear
     prefab: {fileID: 2331671510185821237, guid: b63b6dd8a4e288946b4d66bffecc47e1,
       type: 3}
-    size: 30
+    size: 10
+  - tag: spear2
+    prefab: {fileID: 2763552639767202636, guid: 1c1e33bce079c394593706793533387d,
+      type: 3}
+    size: 9
+  - tag: spear3
+    prefab: {fileID: 565662917229819572, guid: 08885de309592a54aa4d954e42b27e37, type: 3}
+    size: 8
+  - tag: spear4
+    prefab: {fileID: 1898465613349355692, guid: 1b6bfdb42442a974295a634449b4b037,
+      type: 3}
+    size: 7
+  - tag: spear5
+    prefab: {fileID: 4225443948291967607, guid: 35d6420b49594cb4c8e75a7ab4c6fcfc,
+      type: 3}
+    size: 7
+  _child:
+    childTrans:
+    - {x: -0.072, y: 0, z: 0}
+    - {x: 0.127, y: 0, z: 0}
+    - {x: -0.213699, y: 0, z: -0.0820483}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0.2201103, y: 0, z: -0.08507657}
+    - {x: -0.1737, y: 0, z: -0.07}
+    - {x: 0.0202, y: 0, z: 0.0013}
+    - {x: 0.211, y: 0, z: 0}
+    - {x: 0.398, y: 0, z: -0.078}
+    - {x: -0.306, y: 0, z: -0.228}
+    - {x: -0.155, y: 0, z: -0.061}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0.159, y: 0, z: -0.076}
+    - {x: 0.2709, y: 0, z: -0.236}
 --- !u!1 &305388074
 GameObject:
   m_ObjectHideFlags: 0
@@ -14447,6 +14478,7 @@ MonoBehaviour:
   curHealth: 100
   jumpSpeed: 3
   MoveDir: {x: 0, y: 0, z: 0}
+  arrowCount: 1
 --- !u!4 &1581957731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 454324, guid: 9c749916ea37807468429b3e8fb63bf0,
@@ -16531,6 +16563,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1614dd776c2b38f4ea5318fe5f3b6967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 1581957731}
+  test: {fileID: 0}
+  x: 0
+  y: 0
+  z: 0
 --- !u!1 &1782946232 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 194358, guid: 8e263e32ddbcca94aa3d43574d59ad62,

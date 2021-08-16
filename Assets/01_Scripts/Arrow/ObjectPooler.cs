@@ -5,6 +5,12 @@ using UnityEngine;
 public class ObjectPooler : MonoBehaviour
 {
     [System.Serializable]
+    public class CHILD
+    {
+        public List <Vector3> childTrans;
+    }
+
+    [System.Serializable]
     public class Pool
     {
         public string tag;
@@ -25,6 +31,7 @@ public class ObjectPooler : MonoBehaviour
 
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
+    public CHILD _child;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +76,41 @@ public class ObjectPooler : MonoBehaviour
         if(pooledObj != null)
         {
             pooledObj.OnObjectSpawn();
+        }
+
+        //spear 2
+        if(objectToSpawn.name == "spear2(Clone)")
+        {
+            //0번째 자식과 1번째 자식을 초기화
+            objectToSpawn.transform.GetChild(0).localPosition = _child.childTrans[0];
+            objectToSpawn.transform.GetChild(1).localPosition = _child.childTrans[1];
+        }
+
+        //spear 3
+        if (objectToSpawn.name == "spear3(Clone)")
+        {
+            objectToSpawn.transform.GetChild(0).localPosition = _child.childTrans[2];
+            objectToSpawn.transform.GetChild(1).localPosition = _child.childTrans[3];
+            objectToSpawn.transform.GetChild(2).localPosition = _child.childTrans[4];
+        }
+
+        //spear 4
+        if (objectToSpawn.name == "spear4(Clone)")
+        {
+            objectToSpawn.transform.GetChild(0).localPosition = _child.childTrans[5];
+            objectToSpawn.transform.GetChild(1).localPosition = _child.childTrans[6];
+            objectToSpawn.transform.GetChild(2).localPosition = _child.childTrans[7];
+            objectToSpawn.transform.GetChild(3).localPosition = _child.childTrans[8];
+        }
+
+        //spear 5
+        if (objectToSpawn.name == "spear5(Clone)")
+        {
+            objectToSpawn.transform.GetChild(0).localPosition = _child.childTrans[9];
+            objectToSpawn.transform.GetChild(1).localPosition = _child.childTrans[10];
+            objectToSpawn.transform.GetChild(2).localPosition = _child.childTrans[11];
+            objectToSpawn.transform.GetChild(3).localPosition = _child.childTrans[12];
+            objectToSpawn.transform.GetChild(4).localPosition = _child.childTrans[13];
         }
 
         poolDictionary[tag].Enqueue(objectToSpawn);

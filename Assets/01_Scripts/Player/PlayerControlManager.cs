@@ -17,12 +17,15 @@ public class PlayerControlManager: MonoBehaviour
     public float gravity;                   // 캐릭터에게 작용하는 중력.
     public float rotTime;                   // 회전시간
     public float curStamina;                // 캐릭터의 스태미나
-    public float curHealth;                // 캐릭터의 체력
+    public float curHealth;                 // 캐릭터의 체력
     public float jumpSpeed;                 // 캐릭터 점프 힘.
 
     public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
 
-    private int gold;                     // 캐릭터가 가진 골드
+    private int gold;                       // 캐릭터가 가진 골드
+
+    [SerializeField]
+    private int arrowCount;             // 캐릭터가 쏠 수 있는 화살 수
     /*-----------------------------------------------------------------------------------------------------------*/
 
     CommandKey btnJump, btnRun, btnAttack;
@@ -39,6 +42,19 @@ public class PlayerControlManager: MonoBehaviour
                 return null;
 
             return instance;
+        }
+    }
+
+    public int MyArrow
+    {
+        get
+        {
+            return arrowCount;
+        }
+
+        set
+        {
+            arrowCount = value;
         }
     }
 
@@ -64,6 +80,7 @@ public class PlayerControlManager: MonoBehaviour
 
     void Start()
     {
+        arrowCount = 1;
         speed = moveSpeed;
         MoveDir = Vector3.zero;
         controller = GetComponent<CharacterController>();
@@ -198,12 +215,72 @@ public class PlayerControlManager: MonoBehaviour
     void Attack()
     {
         //화살쏘기
-        if(Input.GetKey(KeyCode.E) && GameManager.Instance.CheckPlayerState() != "LIVE_ATTACK")
-        {
-            Invoke("ArrowEvent", 0.15f);
+        if(Input.GetKeyUp(KeyCode.E) && GameManager.Instance.CheckPlayerState() != "LIVE_ATTACK")
+        {           
             btnAttack.Execute();
             Invoke("AttackEndEvent", 0.5f);
+            ArrowSpawner.Instance.DestroyArrow();
+
+            switch (arrowCount)
+            {
+                case 1:
+                    {
+                        Invoke("ArrowEvent", 0.15f);
+                        break;
+                    }
+
+                case 2:
+                    {
+                        Invoke("Arrow2Event", 0.15f);
+                        break;
+                    }
+
+                case 3:
+                    {
+                        Invoke("Arrow3Event", 0.15f);
+                        break;
+                    }
+
+                case 4:
+                    {
+                        Invoke("Arrow4Event", 0.15f);
+                        break;
+                    }
+
+                case 5:
+                    {
+                        Invoke("Arrow5Event", 0.15f);
+                        break;
+                    }
+            }
         }
+    }
+
+
+    #region  INVOKER
+    public void ArrowEvent()
+    {
+        ArrowSpawner.Instance.ArrowSpawn();
+    }
+
+    public void Arrow2Event()
+    {
+        ArrowSpawner.Instance.Arrow2Spawn();
+    }
+
+    public void Arrow3Event()
+    {
+        ArrowSpawner.Instance.Arrow3Spawn();
+    }
+
+    public void Arrow4Event()
+    {
+        ArrowSpawner.Instance.Arrow4Spawn();
+    }
+
+    public void Arrow5Event()
+    {
+        ArrowSpawner.Instance.Arrow5Spawn();
     }
 
     public void AttackEndEvent()
@@ -212,10 +289,8 @@ public class PlayerControlManager: MonoBehaviour
         PlayerAnimationController.Instance.ChangeAnimationState("ATTACK", false);
     }
 
-    public void ArrowEvent()
-    {
-        ArrowSpawner.Instance.ArrowSpawn();
-    }
+
+    #endregion
 
     //* Gold System *//
     public int GetGold()

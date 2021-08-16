@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - spear
+  - spear2
+  - spear3
+  - spear4
+  - spear5
   layers:
   - Default
   - TransparentFX

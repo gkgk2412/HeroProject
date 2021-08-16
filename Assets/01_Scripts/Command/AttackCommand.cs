@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class AttackCommand : CommandKey
 {
-    ObjectPooler objectPooler;
-
     public AttackCommand(MonoBehaviour _mono)
     {
         this.mono = _mono;
-    }
-
-    private void Start()
-    {
-        objectPooler = ObjectPooler.Instance;
     }
 
     public override void Execute()
