@@ -200,8 +200,9 @@ public class PlayerControlManager: MonoBehaviour
         //화살쏘기
         if(Input.GetKey(KeyCode.E) && GameManager.Instance.CheckPlayerState() != "LIVE_ATTACK")
         {
+            Invoke("ArrowEvent", 0.15f);
             btnAttack.Execute();
-            Invoke("AttackEndEvent", 0.8f);
+            Invoke("AttackEndEvent", 0.5f);
         }
     }
 
@@ -209,6 +210,11 @@ public class PlayerControlManager: MonoBehaviour
     {
         GameManager.Instance.PlayerStateChange("LIVE");
         PlayerAnimationController.Instance.ChangeAnimationState("ATTACK", false);
+    }
+
+    public void ArrowEvent()
+    {
+        ArrowSpawner.Instance.ArrowSpawn();
     }
 
     //* Gold System *//

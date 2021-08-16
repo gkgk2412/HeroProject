@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\Arrow\Arrow.cs" />
+    <Compile Include="Assets\01_Scripts\Arrow\ArrowSpawner.cs" />
+    <Compile Include="Assets\01_Scripts\Arrow\IPooledObject.cs" />
+    <Compile Include="Assets\01_Scripts\Arrow\ObjectPooler.cs" />
     <Compile Include="Assets\01_Scripts\BarUI\HPBar.cs" />
     <Compile Include="Assets\01_Scripts\BarUI\staminaBar.cs" />
     <Compile Include="Assets\01_Scripts\ButtonUI\QuestInfoBut.cs" />
