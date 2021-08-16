@@ -9,6 +9,7 @@ TagManager:
   - spear3
   - spear4
   - spear5
+  - Monster
   layers:
   - Default
   - TransparentFX

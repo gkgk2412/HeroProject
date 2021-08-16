@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\Arrow\Arrow.cs" />
-    <Compile Include="Assets\01_Scripts\Arrow\ArrowDestroy.cs" />
     <Compile Include="Assets\01_Scripts\Arrow\ArrowSpawner.cs" />
     <Compile Include="Assets\01_Scripts\Arrow\IPooledObject.cs" />
     <Compile Include="Assets\01_Scripts\Arrow\ObjectPooler.cs" />

@@ -7,6 +7,7 @@ public class Arrow : MonoBehaviour, IPooledObject
     public float upForce = 1.0f;
     public float sideForce = .1f;
     public float speed = .1f;
+    public int damage = 20;
 
     Rigidbody _rb;
 
@@ -37,6 +38,14 @@ public class Arrow : MonoBehaviour, IPooledObject
         if(other.gameObject.tag != "Player")
         {
             this.gameObject.SetActive(false);
+        }
+
+        if(other.gameObject.tag == "Monster")
+        {
+            string message = ""+ damage;
+            Vector3 textPos = new Vector3(other.transform.position.x, other.transform.position.y + 1.4f, other.transform.position.z);
+
+            FloatingTextManager.instance.CreateFloatingDamageText(textPos, message);
         }
     }
 }

@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3d7f9f1c79ef44f9faa1d4d2189ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 2
+  destroyTime: 2.5
   anim: {fileID: 2387822462481064887}
 --- !u!111 &2387822462481064887
 Animation:

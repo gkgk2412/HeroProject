@@ -84,6 +84,9 @@ public class ObjectPooler : MonoBehaviour
             //0번째 자식과 1번째 자식을 초기화
             objectToSpawn.transform.GetChild(0).localPosition = _child.childTrans[0];
             objectToSpawn.transform.GetChild(1).localPosition = _child.childTrans[1];
+
+            objectToSpawn.transform.GetChild(0).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(1).gameObject.SetActive(true);
         }
 
         //spear 3
@@ -92,6 +95,10 @@ public class ObjectPooler : MonoBehaviour
             objectToSpawn.transform.GetChild(0).localPosition = _child.childTrans[2];
             objectToSpawn.transform.GetChild(1).localPosition = _child.childTrans[3];
             objectToSpawn.transform.GetChild(2).localPosition = _child.childTrans[4];
+
+            objectToSpawn.transform.GetChild(0).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(1).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(2).gameObject.SetActive(true);
         }
 
         //spear 4
@@ -101,6 +108,11 @@ public class ObjectPooler : MonoBehaviour
             objectToSpawn.transform.GetChild(1).localPosition = _child.childTrans[6];
             objectToSpawn.transform.GetChild(2).localPosition = _child.childTrans[7];
             objectToSpawn.transform.GetChild(3).localPosition = _child.childTrans[8];
+
+            objectToSpawn.transform.GetChild(0).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(1).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(2).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(3).gameObject.SetActive(true);
         }
 
         //spear 5
@@ -111,6 +123,12 @@ public class ObjectPooler : MonoBehaviour
             objectToSpawn.transform.GetChild(2).localPosition = _child.childTrans[11];
             objectToSpawn.transform.GetChild(3).localPosition = _child.childTrans[12];
             objectToSpawn.transform.GetChild(4).localPosition = _child.childTrans[13];
+
+            objectToSpawn.transform.GetChild(0).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(1).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(2).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(3).gameObject.SetActive(true);
+            objectToSpawn.transform.GetChild(4).gameObject.SetActive(true);
         }
 
         poolDictionary[tag].Enqueue(objectToSpawn);
