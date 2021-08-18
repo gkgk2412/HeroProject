@@ -94,6 +94,7 @@
     <Compile Include="Assets\01_Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\01_Scripts\Player\PlayerControlManager.cs" />
     <Compile Include="Assets\01_Scripts\Quest\Quest.cs" />
+    <Compile Include="Assets\01_Scripts\Quest\QuestAlarm.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestGiver.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestLog.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestScript.cs" />
