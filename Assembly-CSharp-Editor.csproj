@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\Editor\CustomEditorList.cs" />
     <Compile Include="Assets\01_Scripts\Editor\InteractEditor.cs" />
+    <Compile Include="Assets\01_Scripts\Editor\ViewEditor.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/2019.4.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
