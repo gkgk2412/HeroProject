@@ -34,7 +34,8 @@ public class Monster : MonoBehaviour
     public float attackSpeed;
     public string currentAnimationName;
 
-    public bool isSeePlayer;    //몬스터 시야에 들어옴
+    public bool isSeePlayer;        //몬스터 시야에 들어옴
+    protected bool isHit;           //몬스터가 피격당함
 
 
     //현재 애니메이션 이름 저장하는 함수

@@ -105,12 +105,12 @@ public class MonsterAIController : Monster
 
             case StateFlow.UPDATE:
                 {
-                    //몬스터 시야에 발각
-                    if (isSeePlayer)
+                    //몬스터 시야에 발각 || 몬스터가 피격당함
+                    if (isSeePlayer || isHit)
                     {
                         //원래있던위치를 저장함.
                         oriPos = this.gameObject.transform.position;
-                        Invoke("WaitChangeToTrace", 0.7f);
+                        Invoke("WaitChangeToTrace", 0.4f);
                     }
                 }
                 break;
@@ -182,8 +182,8 @@ public class MonsterAIController : Monster
                         ChangeState(MonsterState.ATTACK);
                     }
 
-                    //몬스터 시야에서 벗어남
-                    if (!isSeePlayer)
+                    //몬스터 시야에서 벗어남 && 피격상태가 아님
+                    if (!isSeePlayer && !isHit)
                         Invoke("WaitChangeToWalk", 0.7f);
                 }
                 break;
@@ -322,6 +322,7 @@ public class MonsterAIController : Monster
     {
         if (other.gameObject.tag == "spear" || other.gameObject.tag == "spear2"|| other.gameObject.tag == "spear3"|| other.gameObject.tag == "spear4"|| other.gameObject.tag == "spear5")
         {
+            isHit = true;
             SetDamage(_arrow.damage);
             HpFill.fillAmount = (float)currentHp/hp;
             healthBarBackGround.SetActive(true);
@@ -333,7 +334,8 @@ public class MonsterAIController : Monster
 
     IEnumerator WaitCoroutine()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         healthBarBackGround.SetActive(false);
+        isHit = false;
     }
 }
