@@ -2,23 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class MonsterAIController : Monster
 {
     NavMeshAgent agent;
     Animator Mon_animator;
-
-    public enum MonsterState
-    {
-        IDLE,
-        WALK,
-        TRACE,
-        ATTACK,
-        DIE
-    }
-
-    public MonsterState startState = MonsterState.IDLE;
-    [SerializeField] private MonsterState currentState;
+    
 
     #region Internal-------------------------- # Please close # --------------------------
     private enum StateFlow
@@ -83,13 +73,22 @@ public class MonsterAIController : Monster
 
     public void Start()
     {
+        HpFill.fillAmount = 1.0f;
+
+        currentHp = hp;
+
         Player = GameObject.Find("Player").transform;
+        _arrow = GameObject.Find("ArrowManager").GetComponent<ArrowValue>();
         agent = this.GetComponent<NavMeshAgent>();
         Mon_animator = this.GetComponent<Animator>();
     }
 
     private void CommonUpdate()
-    { }
+    { 
+        //체력이 0보다 작거나 같아 질 경우 DIE 상태로 전환
+        if(currentHp <= 0)
+            ChangeState(MonsterState.DIE);
+    }
 
     private void IDLE(StateFlow stateFlow)
     {
@@ -97,6 +96,8 @@ public class MonsterAIController : Monster
         {
             case StateFlow.ENTER:
                 {
+                    SetAnimationName("isIdle");
+                    ChangeAgentComponent("isIdle");
                     Mon_animator.SetBool("isWalk", false);
                     Mon_animator.SetBool("isIdle", true);
                 }
@@ -109,7 +110,7 @@ public class MonsterAIController : Monster
                     {
                         //원래있던위치를 저장함.
                         oriPos = this.gameObject.transform.position;
-                        ChangeState(MonsterState.TRACE);
+                        Invoke("WaitChangeToTrace", 0.7f);
                     }
                 }
                 break;
@@ -142,6 +143,8 @@ public class MonsterAIController : Monster
                     //원래 있던 위치가 아닐 경우, walk 애니메이션
                     else
                     {
+                        SetAnimationName("isWalk");
+                        ChangeAgentComponent("isWalk");
                         Mon_animator.SetBool("isWalk", true);
                         Mon_animator.SetBool("isTrace", false);
                         agent.SetDestination(oriPos);
@@ -161,6 +164,8 @@ public class MonsterAIController : Monster
         {
             case StateFlow.ENTER:
                 {
+                    SetAnimationName("isTrace");
+                    ChangeAgentComponent("isTrace");
                     Mon_animator.SetBool("isAttack", false);
                     Mon_animator.SetBool("isIdle", false);
                     Mon_animator.SetBool("isTrace", true);
@@ -195,6 +200,8 @@ public class MonsterAIController : Monster
         {
             case StateFlow.ENTER:
                 {
+                    SetAnimationName("isAttack");
+                    ChangeAgentComponent("isAttack");
                     Mon_animator.SetBool("isTrace", false);
                     Mon_animator.SetBool("isAttack", true);
                 }
@@ -223,11 +230,21 @@ public class MonsterAIController : Monster
         {
             case StateFlow.ENTER:
                 {
+                    SetAnimationName("isDie");
+                    ChangeAgentComponent("isDie");
+
+                    Mon_animator.SetBool("isIdle", false);
+                    Mon_animator.SetBool("isTrace", false);
+                    Mon_animator.SetBool("isAttack", false);
+                    Mon_animator.SetBool("isWalk", false);
+                    Mon_animator.SetBool("isDie", true);
                 }
                 break;
 
             case StateFlow.UPDATE:
                 {
+                    this.gameObject.tag = "Untagged";
+                    Destroy(this.gameObject, 3.0f);
                 }
                 break;
 
@@ -245,5 +262,78 @@ public class MonsterAIController : Monster
     
     private void WaitChangeToTrace()
     {
+        ChangeState(MonsterState.TRACE);
+    }
+
+
+    //현재 AI의 행동에 따라서 agent 값과 애니메이션 스피트를 바꿔주는 함수
+    private void ChangeAgentComponent(string name)
+    {
+        switch (name)
+        {
+            case "isIdle":
+                {
+                    //Idle의 ai agent 세팅
+                    agent.speed = 3.5f;
+                    agent.angularSpeed = 480.0f;
+                    agent.acceleration = 60.0f;
+                    agent.stoppingDistance = 0.0f;
+
+                    break;
+                }
+
+            case "isWalk":
+                {
+                    //걸을 때의 ai agent 세팅
+                    agent.speed = 1.5f;
+                    agent.angularSpeed = 480.0f;
+                    agent.acceleration = 60.0f;
+                    agent.stoppingDistance = 0.0f;
+
+                    break;
+                }            
+
+            case "isTrace":
+                {
+                    //쫓을 때의 ai agent 세팅
+                    agent.speed = 3.0f;
+                    agent.angularSpeed = 480.0f;
+                    agent.acceleration = 60.0f;
+                    agent.stoppingDistance = 0.0f;
+
+                    break;
+                }
+
+            case "isAttack":
+                {
+                    //attack 시의 ai agent 세팅
+                    agent.speed = 3.0f;
+                    agent.angularSpeed = 480.0f;
+                    agent.acceleration = 60.0f;
+                    agent.stoppingDistance = 0.0f;
+
+                    break;
+                }
+        }
+    }
+
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "spear" || other.gameObject.tag == "spear2"|| other.gameObject.tag == "spear3"|| other.gameObject.tag == "spear4"|| other.gameObject.tag == "spear5")
+        {
+            SetDamage(_arrow.damage);
+            HpFill.fillAmount = (float)currentHp/hp;
+            healthBarBackGround.SetActive(true);
+
+            StopAllCoroutines();
+            StartCoroutine(WaitCoroutine());
+        }
+    }
+
+    IEnumerator WaitCoroutine()
+    {
+        yield return new WaitForSeconds(3f);
+        healthBarBackGround.SetActive(false);
     }
 }

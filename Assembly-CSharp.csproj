@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\Arrow\Arrow.cs" />
     <Compile Include="Assets\01_Scripts\Arrow\ArrowSpawner.cs" />
+    <Compile Include="Assets\01_Scripts\Arrow\ArrowValue.cs" />
     <Compile Include="Assets\01_Scripts\Arrow\IPooledObject.cs" />
     <Compile Include="Assets\01_Scripts\Arrow\ObjectPooler.cs" />
     <Compile Include="Assets\01_Scripts\BarUI\HPBar.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Assets\01_Scripts\Monster\Degree.cs" />
     <Compile Include="Assets\01_Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\01_Scripts\Monster\MonsterAIController.cs" />
+    <Compile Include="Assets\01_Scripts\Monster\MonsterHP.cs" />
     <Compile Include="Assets\01_Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\01_Scripts\Player\PlayerControlManager.cs" />
     <Compile Include="Assets\01_Scripts\Quest\Quest.cs" />

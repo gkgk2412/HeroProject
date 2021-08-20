@@ -117,6 +117,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: spear
       objectReference: {fileID: 0}
+    - target: {fileID: 2331671510185821237, guid: b63b6dd8a4e288946b4d66bffecc47e1,
+        type: 3}
+      propertyPath: m_TagString
+      value: spear
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b63b6dd8a4e288946b4d66bffecc47e1, type: 3}
 --- !u!4 &4663793807831720759 stripped
@@ -191,6 +196,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: spear (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331671510185821237, guid: b63b6dd8a4e288946b4d66bffecc47e1,
+        type: 3}
+      propertyPath: m_TagString
+      value: spear
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -267,6 +277,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: spear (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331671510185821237, guid: b63b6dd8a4e288946b4d66bffecc47e1,
+        type: 3}
+      propertyPath: m_TagString
+      value: spear
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

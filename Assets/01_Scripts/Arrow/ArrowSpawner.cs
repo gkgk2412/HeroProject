@@ -6,7 +6,6 @@ public class ArrowSpawner : MonoBehaviour
 {
     ObjectPooler objectPooler;
     public Transform Player = null;
-    public Transform test;
 
     public float x,y,z;
 

@@ -4,12 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Monster
+  - Arrow
   - spear
   - spear2
   - spear3
   - spear4
   - spear5
-  - Monster
   layers:
   - Default
   - TransparentFX

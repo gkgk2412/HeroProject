@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour, IPooledObject
+public class Arrow : ArrowValue, IPooledObject
 {
-    public float upForce = 1.0f;
-    public float sideForce = .1f;
-    public float speed = .1f;
-    public int damage = 20;
-
     Rigidbody _rb;
 
     public void Start()
@@ -46,6 +41,7 @@ public class Arrow : MonoBehaviour, IPooledObject
             Vector3 textPos = new Vector3(other.transform.position.x, other.transform.position.y + 1.4f, other.transform.position.z);
 
             FloatingTextManager.instance.CreateFloatingDamageText(textPos, message);
+
         }
     }
 }
