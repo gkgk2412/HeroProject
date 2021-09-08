@@ -12,6 +12,7 @@ public class QuestLog : MonoBehaviour
     private Transform questParent;
 
     private Quest selected;
+    private Monster monster;
 
     [SerializeField]
     private Text questDescription;
@@ -43,6 +44,11 @@ public class QuestLog : MonoBehaviour
 
         go.GetComponent<Text>().text = quest.MyTitle;
     }
+
+    public void UpdateSelected()
+    {
+        ShowDescription(selected);
+    }    
 
     public void ShowDescription(Quest quest)
     {

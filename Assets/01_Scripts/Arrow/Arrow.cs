@@ -37,11 +37,10 @@ public class Arrow : ArrowValue, IPooledObject
 
         if(other.gameObject.tag == "Monster")
         {
-            string message = ""+ damage;
+            string message = "" + damage;
             Vector3 textPos = new Vector3(other.transform.position.x, other.transform.position.y + 1.4f, other.transform.position.z);
 
             FloatingTextManager.instance.CreateFloatingDamageText(textPos, message);
-
         }
     }
 }

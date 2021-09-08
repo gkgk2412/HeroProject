@@ -31,16 +31,37 @@ public class SubQuestText : MonoBehaviour
         if(currentClick == 1 && !GameManager.Instance.GetsubQuestArray(0))
         {
             acceptText.text = "수락";
+            acceptText.transform.parent.GetComponent<Button>().interactable = true;
+        }
+
+        if (currentClick == 1 && GameManager.Instance.GetsubQuestArray(0))
+        {
+            acceptText.text = "수락됨";
+            acceptText.transform.parent.GetComponent<Button>().interactable = false;
         }
 
         if (currentClick == 2 && !GameManager.Instance.GetsubQuestArray(1))
         {
             acceptText.text = "수락";
+            acceptText.transform.parent.GetComponent<Button>().interactable = true;
+        }
+
+        if (currentClick == 2 && GameManager.Instance.GetsubQuestArray(1))
+        {
+            acceptText.text = "수락됨";
+            acceptText.transform.parent.GetComponent<Button>().interactable = false;
         }
 
         if (currentClick == 3 && !GameManager.Instance.GetsubQuestArray(2))
         {
             acceptText.text = "수락";
+            acceptText.transform.parent.GetComponent<Button>().interactable = true;
+        }
+
+        if (currentClick == 3 && GameManager.Instance.GetsubQuestArray(2))
+        {
+            acceptText.text = "수락됨";
+            acceptText.transform.parent.GetComponent<Button>().interactable = false;
         }
     }
 
@@ -54,7 +75,7 @@ public class SubQuestText : MonoBehaviour
         accBnt.GetComponent<Image>().color = Color.white;
         acceptText.color = Color.black;
 
-        string message = "거대 토끼 악당이 나타난 뒤로 얌전하던 버섯돌이들이 날뛰고 있어 ! \n<color=#ff0000ff>버섯돌이</color> <color=#0000ffff>5마리</color>를 해치워주면 <color=#0000ffff>5골드</color>를 줄게. \n어때, 해결해주겠어?";
+        string message = "거대 토끼 악당이 나타난 뒤로 얌전하던 버섯돌이들이 날뛰고 있어 ! \n<color=#ff0000ff>버섯돌이</color> <color=#0000ffff>3마리</color>를 해치워주면 <color=#0000ffff>3골드</color>를 줄게. \n어때, 해결해주겠어?";
 
         subDescriptionText.GetComponent<Text>().text = message;
 
@@ -71,7 +92,7 @@ public class SubQuestText : MonoBehaviour
         accBnt.GetComponent<Image>().color = Color.white;
         acceptText.color = Color.black;
 
-        string message = "오늘 저녁으로 무 조림을 해먹고싶은데, 거대 토끼 악당이 나타난 뒤로 무 몬스터를 잡기가 쉽지 않아졌어.\n누군가 <color=#ff0000ff>무 몬스터</color>를 <color=#0000ffff>5마리</color>만 잡아와준다면 무 값과 수고비까지 해서 넉넉하게 <color=#0000ffff>10골드</color>를 줄게.";
+        string message = "오늘 저녁으로 무 조림을 해먹고싶은데, 거대 토끼 악당이 나타난 뒤로 무 몬스터를 잡기가 쉽지 않아졌어.\n누군가 <color=#ff0000ff>무 몬스터</color>를 <color=#0000ffff>3마리</color>만 잡아와준다면 무 값과 수고비까지 해서 넉넉하게 <color=#0000ffff>10골드</color>를 줄게.";
 
         subDescriptionText.GetComponent<Text>().text = message;
 

@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 [System.Serializable]
 public class Monster : MonoBehaviour
@@ -36,7 +38,7 @@ public class Monster : MonoBehaviour
 
     public bool isSeePlayer;        //몬스터 시야에 들어옴
     protected bool isHit;           //몬스터가 피격당함
-
+    protected bool isDieflag;       //몬스터가 죽음
 
     //현재 애니메이션 이름 저장하는 함수
     protected void SetAnimationName(string name)

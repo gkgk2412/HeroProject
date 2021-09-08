@@ -20,21 +20,18 @@ public class SubQuestBnt : MonoBehaviour
         {
             EventSub01();
             GameManager.Instance.SetsubQuestArray(0, true);
-            acceptText.text = "수락됨";
         }
 
         if (_subScr.GetCurrentNum() == 2)
         {
             EventSub02();
             GameManager.Instance.SetsubQuestArray(1, true);
-            acceptText.text = "수락됨";
         }
 
         if (_subScr.GetCurrentNum() == 3)
         {
             EventSub03();
             GameManager.Instance.SetsubQuestArray(2, true);
-            acceptText.text = "수락됨";
         }
     }
 

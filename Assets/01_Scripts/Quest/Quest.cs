@@ -100,5 +100,22 @@ public abstract class Objective
 [System.Serializable]
 public class CollectObjective : Objective
 {
+    private static CollectObjective instance;
+    public static CollectObjective Instance => instance;
 
+    public CollectObjective()
+    {
+        //자기 자신에 대한 정보를 static 형태의 instacne 변수에 저장하여 외부에서 접근이 쉽도록 함
+        instance = this;
+    }
+
+    public void UpdateItemCount(string name)
+    {
+        if (MyType.ToLower() == name.ToLower())
+        {
+            MyCurrentAmount = MonsterDie.Instance.GetDieMonsterCount(name);
+            QuestLog.Instance.UpdateSelected();
+            Debug.Log(MyCurrentAmount);
+        }
+    }
 }

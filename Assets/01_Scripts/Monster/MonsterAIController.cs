@@ -8,7 +8,6 @@ public class MonsterAIController : Monster
 {
     NavMeshAgent agent;
     Animator Mon_animator;
-    
 
     #region Internal-------------------------- # Please close # --------------------------
     private enum StateFlow
@@ -116,7 +115,7 @@ public class MonsterAIController : Monster
                 break;
 
             case StateFlow.EXIT:
-                {}
+                { isDieflag = false; }
                 break;
         }
     }
@@ -153,7 +152,7 @@ public class MonsterAIController : Monster
                 break;
 
             case StateFlow.EXIT:
-                {}
+                { isDieflag = false; }
                 break;
         }
     }
@@ -189,7 +188,7 @@ public class MonsterAIController : Monster
                 break;
 
             case StateFlow.EXIT:
-                {}
+                { isDieflag = false; }
                 break;
         }
     }
@@ -219,6 +218,7 @@ public class MonsterAIController : Monster
 
             case StateFlow.EXIT:
                 {
+                    isDieflag = false;
                 }
                 break;
         }
@@ -238,6 +238,14 @@ public class MonsterAIController : Monster
                     Mon_animator.SetBool("isAttack", false);
                     Mon_animator.SetBool("isWalk", false);
                     Mon_animator.SetBool("isDie", true);
+
+                    if(!isDieflag)
+                    {
+                        isDieflag = true;
+                        CollectObjective.Instance.UpdateItemCount(_name);                        
+                        MonsterDie.Instance.UpdateDictionary(MonsterDie.Instance.DieMonsterDic, _name, 1);
+                        //Debug.Log("name " + _name + "  count " + MonsterDie.Instance.GetDieMonsterCount(_name));
+                    }               
                 }
                 break;
 
