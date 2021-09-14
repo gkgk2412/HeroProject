@@ -7,6 +7,7 @@ public class interactiveEvent : MonoBehaviour
 {
     public InteractUI _interactUIScr;
     public InteractUI _interactUIScr2;
+    public InteractUI _interactUIScr3;
 
     private bool isInteractKeyDown = false;
 
@@ -15,6 +16,9 @@ public class interactiveEvent : MonoBehaviour
 
     public UnityEvent _kingEventON;
     public UnityEvent _kingEventOFF;
+    
+    public UnityEvent _storeEventON;
+    public UnityEvent _storeEventOFF;
 
     private void Update()
     {
@@ -32,6 +36,14 @@ public class interactiveEvent : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.F))
             {
                 ExecuteKing();
+            }
+        }
+        
+        if(_interactUIScr3.RangeCheck())
+        {
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                ExecuteStore();
             }
         }
     }
@@ -79,6 +91,28 @@ public class interactiveEvent : MonoBehaviour
         }
     }
 
+    public void ExecuteStore()
+    {
+        /*------상점 이벤트------*/
+        if (isInteractKeyDown)
+        {
+            InteractionStoreOFF();
+            GameManager.Instance.PlayerStateChange("LIVE");
+            isInteractKeyDown = false;
+        }
+        else
+        {
+            // 다른 UI창이 띄워지지 않았을 경우
+            if (!GameManager.Instance.GetUiWindowCheck())
+            {
+                InteractionStoreOn();
+                GameManager.Instance.PlayerStateChange("STOP");
+                PlayerAnimationController.Instance.ChangeAnimationState("IDLE", false);
+                isInteractKeyDown = true;
+            }
+        }
+    }
+
     /*-------------------이벤트 연결 함수-------------------*/
     public void InteractionBoardOn()
     {
@@ -98,5 +132,15 @@ public class interactiveEvent : MonoBehaviour
     public void InteractionKingOFF()
     {
         _kingEventOFF.Invoke();
+    }
+
+    public void InteractionStoreOn()
+    {
+        _storeEventON.Invoke();
+    }
+
+    public void InteractionStoreOFF()
+    {
+        _storeEventOFF.Invoke();
     }
 }

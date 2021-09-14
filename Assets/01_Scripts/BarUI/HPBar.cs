@@ -7,23 +7,33 @@ public class HPBar : MonoBehaviour
 {
     [SerializeField]
     private Image _HPBar;
-
+    [SerializeField]
     private float maxHP = 100;
 
     private float speed = 5.0f;
 
-    private void Start()
+
+    public float MyMaxHP
     {
-        _HPBar.fillAmount = (float)PlayerControlManager.Instance.curHealth / (float)maxHP;
+        get
+        {
+            return maxHP;
+        }
+
+        set
+        {
+            maxHP = value;
+        }
     }
 
     private void Update()
     {
+        _HPBar.fillAmount = (float)PlayerControlManager.Instance.MyCurHP / (float)maxHP;
         HandleStamina();
     }
 
     public void HandleStamina()
     {
-        _HPBar.fillAmount = Mathf.Lerp(_HPBar.fillAmount, (float)PlayerControlManager.Instance.curHealth / (float)maxHP, Time.deltaTime * speed);
+        _HPBar.fillAmount = Mathf.Lerp(_HPBar.fillAmount, (float)PlayerControlManager.Instance.MyCurHP / (float)maxHP, Time.deltaTime * speed);
     }
 }

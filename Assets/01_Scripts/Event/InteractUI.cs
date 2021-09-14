@@ -13,6 +13,7 @@ public class InteractUI : MonoBehaviour
     public GameObject text;
     public GameObject _board;
     public GameObject _king;
+    public GameObject StoreUI;
 
     public float InteractiveLength;
     public float minLength;
@@ -105,6 +106,24 @@ public class InteractUI : MonoBehaviour
     {
         //UI창이 꺼짐으로 바꿔줌.
         GameManager.Instance.SetUiWindowCheck(false);
+    }
+
+    public void OnEventStore()
+    {
+        //UI창이 켜짐으로 바꿔줌.
+        GameManager.Instance.SetUiWindowCheck(true);
+
+        text.SetActive(false);
+        StoreUI.SetActive(true);
+        isEventOn = true;
+    }
+
+    public void OffEventStore()
+    {       
+        //UI창이 꺼짐으로 바꿔줌.
+        GameManager.Instance.SetUiWindowCheck(false);
+        StoreUI.SetActive(false);
+        isEventOn = false;
     }
 
     public bool RangeCheck()

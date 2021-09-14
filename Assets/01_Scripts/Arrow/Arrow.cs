@@ -6,6 +6,15 @@ public class Arrow : ArrowValue, IPooledObject
 {
     Rigidbody _rb;
 
+    private static Arrow instance;
+    public static Arrow Instance => instance;
+
+    public Arrow()
+    {
+        //자기 자신에 대한 정보를 static 형태의 instacne 변수에 저장하여 외부에서 접근이 쉽도록 함
+        instance = this;
+    }
+
     public void Start()
     {
         _rb = this.GetComponent<Rigidbody>();

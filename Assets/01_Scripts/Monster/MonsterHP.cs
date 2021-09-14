@@ -15,7 +15,7 @@ public class MonsterHP : Monster
     // Start is called before the first frame update
     void Start()
     {
-        mHP_Prefab.transform.GetChild(1).GetComponent<Image>().fillAmount = (float)PlayerControlManager.Instance.curHealth / (float)maxHP;
+        mHP_Prefab.transform.GetChild(1).GetComponent<Image>().fillAmount = (float)PlayerControlManager.Instance.MyCurHP / (float)maxHP;
         GameObject[] t_objects = GameObject.FindGameObjectsWithTag("Monster");
 
         for(int i = 0; i < t_objects.Length; ++i)

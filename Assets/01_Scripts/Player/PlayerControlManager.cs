@@ -17,15 +17,17 @@ public class PlayerControlManager: MonoBehaviour
     public float gravity;                   // 캐릭터에게 작용하는 중력.
     public float rotTime;                   // 회전시간
     public float curStamina;                // 캐릭터의 스태미나
-    public float curHealth;                 // 캐릭터의 체력
     public float jumpSpeed;                 // 캐릭터 점프 힘.
 
     public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
 
+    [SerializeField]
     private int gold;                       // 캐릭터가 가진 골드
 
-    [SerializeField]
     private int arrowCount;             // 캐릭터가 쏠 수 있는 화살 수
+
+    [SerializeField]
+    private float curHealth;                 // 캐릭터의 체력
     /*-----------------------------------------------------------------------------------------------------------*/
 
     CommandKey btnJump, btnRun, btnAttack;
@@ -57,7 +59,32 @@ public class PlayerControlManager: MonoBehaviour
             arrowCount = value;
         }
     }
+    
+    public int MyGold
+    {
+        get
+        {
+            return gold;
+        }
 
+        set
+        {
+            gold = value;
+        }
+    }
+
+    public float MyCurHP
+    {
+        get
+        {
+            return curHealth;
+        }
+
+        set
+        {
+            curHealth = value;
+        }
+    }
 
     void Awake()
     {
