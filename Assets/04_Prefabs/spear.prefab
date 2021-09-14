@@ -129,7 +129,7 @@ MonoBehaviour:
   upForce: 2
   sideForce: 0
   speed: 4
-  damage: 20
+  _damage: 20
 --- !u!54 &4594228521855818759
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -29687,7 +29687,7 @@ MonoBehaviour:
   curStamina: 100
   jumpSpeed: 3
   MoveDir: {x: 0, y: 0, z: 0}
-  gold: 0
+  gold: 20
   curHealth: 100
 --- !u!4 &1581957731 stripped
 Transform:
@@ -33736,7 +33736,6 @@ MonoBehaviour:
   upForce: 1
   sideForce: 0.1
   speed: 0.1
-  damage: 20
 --- !u!1 &1782946232 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 194358, guid: 8e263e32ddbcca94aa3d43574d59ad62,
@@ -35095,6 +35094,8 @@ MonoBehaviour:
   go_Prefab_FloatingText: {fileID: 5173798185318986433, guid: 1c0add73f6141d94e9cfffa5a204e3a9,
     type: 3}
   go_Prefab_FloatingDamageText: {fileID: 2815939706112992518, guid: 5cf2d762d35e1224d9e57076234d2fe2,
+    type: 3}
+  go_Prefab_FloatingGoldText: {fileID: 6447355790827310197, guid: 588ff31ce65ffa0409eb29211b06714b,
     type: 3}
 --- !u!1001 &1859797566
 PrefabInstance:

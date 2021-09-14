@@ -9,6 +9,7 @@ public class FloatingTextManager : MonoBehaviour
 
     [SerializeField] GameObject go_Prefab_FloatingText;
     [SerializeField] GameObject go_Prefab_FloatingDamageText;
+    [SerializeField] GameObject go_Prefab_FloatingGoldText;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,12 @@ public class FloatingTextManager : MonoBehaviour
     public void CreateFloatingDamageText(Vector3 pos, string _text)
     {
         GameObject clone = Instantiate(go_Prefab_FloatingDamageText, pos, go_Prefab_FloatingDamageText.transform.rotation);
+        clone.GetComponentInChildren<Text>().text = _text;
+    }
+
+    public void CreateFloatingGoldText(Vector3 pos, string _text)
+    {
+        GameObject clone = Instantiate(go_Prefab_FloatingGoldText, pos, go_Prefab_FloatingGoldText.transform.rotation);
         clone.GetComponentInChildren<Text>().text = _text;
     }
 }

@@ -52,13 +52,13 @@ public class ArrowSpawner : MonoBehaviour
 
     public void DestroyArrow()
     {
-        //가용 숫자가 2면 arrow 1을 모두 destroy
-        if (PlayerControlManager.Instance.MyArrow == 2)
-        {
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("spear");
-            for (int i = 0; i < objects.Length; i++)
-                Destroy(objects[i]);
-        }
+        ////가용 숫자가 2면 arrow 1을 모두 destroy
+        //if (PlayerControlManager.Instance.MyArrow == 2)
+        //{
+        //    GameObject[] objects = GameObject.FindGameObjectsWithTag("spear");
+        //    for (int i = 0; i < objects.Length; i++)
+        //        Destroy(objects[i]);
+        //}
 
         //가용 숫자가 3면 arrow 2을 모두 destroy
         if (PlayerControlManager.Instance.MyArrow == 3)

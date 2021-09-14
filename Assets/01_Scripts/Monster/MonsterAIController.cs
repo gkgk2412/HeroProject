@@ -331,7 +331,7 @@ public class MonsterAIController : Monster
         if (other.gameObject.tag == "spear" || other.gameObject.tag == "spear2"|| other.gameObject.tag == "spear3"|| other.gameObject.tag == "spear4"|| other.gameObject.tag == "spear5")
         {
             isHit = true;
-            SetDamage(_arrow.damage);
+            SetDamage(Arrow.Instance._damage);
             HpFill.fillAmount = (float)currentHp/hp;
             healthBarBackGround.SetActive(true);
 

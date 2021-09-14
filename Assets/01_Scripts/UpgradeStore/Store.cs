@@ -25,12 +25,20 @@ public class Store : MonoBehaviour
 
     public void HpUpgrade()
     {
-        if (fakeHealth < 100 /*&& PlayerControlManager.Instance.MyGold >= hpSettingGold*/) 
+        if (PlayerControlManager.Instance.MyGold < hpSettingGold)
+        {
+            string message = "골드가 부족합니다!";
+
+            FloatingTextManager.instance.CreateFloatingGoldText(this.transform.position, message);
+        }
+
+        if (fakeHealth < 100 && PlayerControlManager.Instance.MyGold >= hpSettingGold) 
         {
             _scrHP.MyMaxHP = _scrHP.MyMaxHP + 10;
             PlayerControlManager.Instance.MyCurHP = PlayerControlManager.Instance.MyCurHP + 10;
             fakeHealth = fakeHealth + 10;
 
+            PlayerControlManager.Instance.MyGold = PlayerControlManager.Instance.MyGold - hpSettingGold;
             hpSettingGold = hpSettingGold + 2;
 
             string message = hpSettingGold.ToString() + " GOLD";
@@ -43,11 +51,19 @@ public class Store : MonoBehaviour
 
     public void DamageUpgrade()
     {
-        if (fakeDamage < 100 /*&& PlayerControlManager.Instance.MyGold >= hpSettingGold*/)
+        if (PlayerControlManager.Instance.MyGold < damageSettingGold)
         {
-            Arrow.Instance.damage = Arrow.Instance.damage + 10;
+            string message = "골드가 부족합니다!";
+
+            FloatingTextManager.instance.CreateFloatingGoldText(this.transform.position, message);
+        }
+        
+        if (fakeDamage < 100 && PlayerControlManager.Instance.MyGold >= damageSettingGold)
+        {
+            Arrow.Instance._damage = Arrow.Instance._damage + 10;
             fakeDamage = fakeDamage + 10;
 
+            PlayerControlManager.Instance.MyGold = PlayerControlManager.Instance.MyGold - damageSettingGold;
             damageSettingGold = damageSettingGold + 2;
 
             string message = damageSettingGold.ToString() + " GOLD";
@@ -58,9 +74,18 @@ public class Store : MonoBehaviour
 
     public void ArrowUpgrade()
     {
-        if (PlayerControlManager.Instance.MyArrow < 5 /*&& PlayerControlManager.Instance.MyGold >= arrowSettingGold*/)
+        if (PlayerControlManager.Instance.MyGold < arrowSettingGold)
+        {
+            string message = "골드가 부족합니다!";
+
+            FloatingTextManager.instance.CreateFloatingGoldText(this.transform.position, message);
+        }
+
+        if (PlayerControlManager.Instance.MyArrow < 5 && PlayerControlManager.Instance.MyGold >= arrowSettingGold)
         {
             PlayerControlManager.Instance.MyArrow = PlayerControlManager.Instance.MyArrow + 1;
+
+            PlayerControlManager.Instance.MyGold = PlayerControlManager.Instance.MyGold - arrowSettingGold;
             arrowSettingGold = arrowSettingGold + 2;
 
             string message = PlayerControlManager.Instance.MyArrow.ToString();

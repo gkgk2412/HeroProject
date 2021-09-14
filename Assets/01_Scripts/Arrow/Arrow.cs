@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Arrow : ArrowValue, IPooledObject
 {
+    public int _damage;
+
     Rigidbody _rb;
 
     private static Arrow instance;
+
     public static Arrow Instance => instance;
 
     public Arrow()
@@ -18,6 +21,7 @@ public class Arrow : ArrowValue, IPooledObject
     public void Start()
     {
         _rb = this.GetComponent<Rigidbody>();
+        _damage = 20;
     }
 
     public void OnObjectSpawn()
@@ -28,7 +32,7 @@ public class Arrow : ArrowValue, IPooledObject
 
         Vector3 force = new Vector3(xForce, yForce, zForce);
 
-        GetComponent<Rigidbody>().velocity = force;
+        this.GetComponent<Rigidbody>().velocity = force;
     }
 
     public void Update()
@@ -46,7 +50,7 @@ public class Arrow : ArrowValue, IPooledObject
 
         if(other.gameObject.tag == "Monster")
         {
-            string message = "" + damage;
+            string message = "" + _damage;
             Vector3 textPos = new Vector3(other.transform.position.x, other.transform.position.y + 1.4f, other.transform.position.z);
 
             FloatingTextManager.instance.CreateFloatingDamageText(textPos, message);
