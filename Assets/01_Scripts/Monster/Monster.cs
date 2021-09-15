@@ -31,9 +31,8 @@ public class Monster : MonoBehaviour
     public string _name;
     public float hp;
     public float currentHp;
-    public float damage;
+    protected float attackDamage = 5;
     public float speed;
-    public float attackSpeed;
     public string currentAnimationName;
 
     public bool isSeePlayer;        //몬스터 시야에 들어옴
@@ -50,5 +49,11 @@ public class Monster : MonoBehaviour
     {
         currentHp -= damage;
         return currentHp;
+    }
+
+    protected void DmgAttack()
+    {
+        //때리는 행동을 했는데 범위 내에 플레이어가 있다면 실제로 데미지 준다. (때리는 행동 한 번 할 때마다)
+        PlayerControlManager.Instance.MyCurHP = PlayerControlManager.Instance.MyCurHP - attackDamage;
     }
 }

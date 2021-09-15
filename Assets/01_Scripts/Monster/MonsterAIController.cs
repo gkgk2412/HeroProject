@@ -207,7 +207,12 @@ public class MonsterAIController : Monster
                 break;
 
             case StateFlow.UPDATE:
-                {                   
+                {
+                    //if (Mon_animator.GetCurrentAnimatorStateInfo(0).IsName("atk3") && Mon_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
+                    //{
+                    //    DmgAttack();
+                    //}
+
                     //플레이어와의 거리가 멀어진 경우, TRACE으로 상태전환
                     if (Vector3.Distance(Player.position, this.transform.position) >= 1.5f)
                     {
