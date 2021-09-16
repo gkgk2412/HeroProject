@@ -53,7 +53,18 @@ public class Monster : MonoBehaviour
 
     protected void DmgAttack()
     {
-        //때리는 행동을 했는데 범위 내에 플레이어가 있다면 실제로 데미지 준다. (때리는 행동 한 번 할 때마다)
-        PlayerControlManager.Instance.MyCurHP = PlayerControlManager.Instance.MyCurHP - attackDamage;
+        if (PlayerControlManager.Instance.MyCurHP > 0)
+        {
+            PlayerControlManager.Instance.MyCurHP = PlayerControlManager.Instance.MyCurHP - attackDamage;
+
+            string message = attackDamage.ToString();
+
+            FloatingTextManager.instance.CreateFloatingPlayerDamageText(new Vector3(Player.transform.position.x, Player.transform.position.y + 1.0f, Player.transform.position.z), message);
+        }
+
+        if(PlayerControlManager.Instance.MyCurHP <= 0)
+        {
+            PlayerControlManager.Instance.MyCurHP = 0;
+        }
     }
 }

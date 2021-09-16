@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MonsterDie : MonoBehaviour
 {
+    private int copyDieCount_mushroom = 0;
+    private int copyDieCount_radish = 0;
+    private int copyDieCount_crystal = 0;
+
     private static MonsterDie instance;
     public static MonsterDie Instance => instance;
 
@@ -13,12 +17,51 @@ public class MonsterDie : MonoBehaviour
         instance = this;
     }
 
+    public int MyMushRoom
+    {
+        get
+        {
+            return copyDieCount_mushroom;
+        }
+
+        set
+        {
+            copyDieCount_mushroom = value;
+        }
+    }
+
+    public int MyRadish
+    {
+        get
+        {
+            return copyDieCount_radish;
+        }
+
+        set
+        {
+            copyDieCount_radish = value;
+        }
+    }
+
+    public int MyCrystal
+    {
+        get
+        {
+            return copyDieCount_crystal;
+        }
+
+        set
+        {
+            copyDieCount_crystal = value;
+        }
+    }
+
     //죽은몬스터 count 확인 용
     public Dictionary<string, int> DieMonsterDic = new Dictionary<string, int>()
     {
         {"mushroom", 0},
         {"radish", 0},
-        {"crytal", 0}
+        {"crystal", 0}
     };
 
     public void UpdateDictionary(Dictionary<string, int> dic, string key, int newValue)
@@ -42,5 +85,31 @@ public class MonsterDie : MonoBehaviour
         }
 
         return count;
+    }
+
+    public int CopyDieMonsterCount(string type)
+    {
+        if (type == "mushroom")
+        {
+            copyDieCount_mushroom = GetDieMonsterCount(type);
+
+            return copyDieCount_mushroom;
+        }
+
+        else if (type == "radish")
+        {
+            copyDieCount_radish = GetDieMonsterCount(type);
+
+            return copyDieCount_radish;
+        }
+
+        else if (type == "crystal")
+        {
+            copyDieCount_crystal = GetDieMonsterCount(type);
+
+            return copyDieCount_crystal;
+        }
+
+        return 0;
     }
 }

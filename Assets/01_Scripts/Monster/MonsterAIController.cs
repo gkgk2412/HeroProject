@@ -9,6 +9,8 @@ public class MonsterAIController : Monster
     NavMeshAgent agent;
     Animator Mon_animator;
 
+    private bool isCheckAttackDamage = false;
+
     #region Internal-------------------------- # Please close # --------------------------
     private enum StateFlow
     {
@@ -203,15 +205,17 @@ public class MonsterAIController : Monster
                     ChangeAgentComponent("isAttack");
                     Mon_animator.SetBool("isTrace", false);
                     Mon_animator.SetBool("isAttack", true);
+
+                    StartCoroutine(WaitAttackDamageCoroutine());
                 }
                 break;
 
             case StateFlow.UPDATE:
                 {
-                    //if (Mon_animator.GetCurrentAnimatorStateInfo(0).IsName("atk3") && Mon_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
-                    //{
-                    //    DmgAttack();
-                    //}
+                    if (Mon_animator.GetCurrentAnimatorStateInfo(0).IsName("atk3") &&  Mon_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
+                    {
+                        isCheckAttackDamage = true;
+                    }
 
                     //플레이어와의 거리가 멀어진 경우, TRACE으로 상태전환
                     if (Vector3.Distance(Player.position, this.transform.position) >= 1.5f)
@@ -223,7 +227,9 @@ public class MonsterAIController : Monster
 
             case StateFlow.EXIT:
                 {
+                    StopCoroutine(WaitAttackDamageCoroutine());
                     isDieflag = false;
+                    isCheckAttackDamage = false;
                 }
                 break;
         }
@@ -235,6 +241,8 @@ public class MonsterAIController : Monster
         {
             case StateFlow.ENTER:
                 {
+                    MonsterSpawner.Instance.MonsterRespawnCheck(_name);
+
                     SetAnimationName("isDie");
                     ChangeAgentComponent("isDie");
 
@@ -257,7 +265,7 @@ public class MonsterAIController : Monster
             case StateFlow.UPDATE:
                 {
                     this.gameObject.tag = "Untagged";
-                    Destroy(this.gameObject, 3.0f);
+                    Invoke("WaitDieActiveFalse", 2.0f);
                 }
                 break;
 
@@ -345,10 +353,57 @@ public class MonsterAIController : Monster
         }
     }
 
+    private void WaitDieActiveFalse()
+    {
+        InitMonster();
+        this.gameObject.SetActive(false);
+    }
+
     IEnumerator WaitCoroutine()
     {
         yield return new WaitForSeconds(4f);
         healthBarBackGround.SetActive(false);
         isHit = false;
+    }
+
+    IEnumerator WaitAttackDamageCoroutine()
+    {
+        while(true)
+        {
+            if(isCheckAttackDamage)
+            {
+                DmgAttack();
+                yield return new WaitForSeconds(1.25f);
+            }
+
+            else
+            {
+                yield return null;
+            }
+        }
+    }
+
+
+
+    //몬스터를 초기상태로 초기화함.
+    protected void InitMonster()
+    {
+        //체력, 애니메이션상태
+        currentHp = 100;
+        HpFill.fillAmount = (float)currentHp / hp;
+
+        SetAnimationName("isIdle");
+        ChangeAgentComponent("isIdle");
+
+        Mon_animator.SetBool("isIdle", true);
+        Mon_animator.SetBool("isTrace", false);
+        Mon_animator.SetBool("isAttack", false);
+        Mon_animator.SetBool("isWalk", false);
+        Mon_animator.SetBool("isDie", false);
+
+        isSeePlayer = false;
+        isHit = false;
+
+        ChangeState(MonsterState.IDLE);
     }
 }

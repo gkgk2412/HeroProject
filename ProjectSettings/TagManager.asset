@@ -11,6 +11,9 @@ TagManager:
   - spear3
   - spear4
   - spear5
+  - radish
+  - mushroom
+  - crystal
   layers:
   - Default
   - TransparentFX
