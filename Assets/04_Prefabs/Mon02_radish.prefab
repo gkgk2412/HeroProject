@@ -204,9 +204,9 @@ GameObject:
   - component: {fileID: 6335924492497787671}
   - component: {fileID: 6335924492506776725}
   - component: {fileID: 6335924492503973303}
+  - component: {fileID: 6335924492932942270}
   - component: {fileID: 6335924492932942268}
   - component: {fileID: 6335924492932942271}
-  - component: {fileID: 6335924492932942270}
   - component: {fileID: 7021875702236863287}
   m_Layer: 0
   m_Name: Mon02_radish
@@ -264,6 +264,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.19, y: 0.5, z: 0.21}
   m_Center: {x: 0, y: 0.26, z: -0.05}
+--- !u!195 &6335924492932942270
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6335924492497385163}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.09
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.38
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &6335924492932942268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,28 +321,6 @@ MonoBehaviour:
   speed: 3
   currentAnimationName: 
   isSeePlayer: 0
---- !u!195 &6335924492932942270
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6335924492497385163}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.09
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.38
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!54 &7021875702236863287
 Rigidbody:
   m_ObjectHideFlags: 0
