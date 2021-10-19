@@ -82,6 +82,12 @@ public class MonsterAIController : Monster
         _arrow = GameObject.Find("ArrowManager").GetComponent<ArrowValue>();
         agent = this.GetComponent<NavMeshAgent>();
         Mon_animator = this.GetComponent<Animator>();
+
+        //nav agent 끄고 생성
+        agent.enabled = false;
+
+        //원래있던위치를 저장함.
+        oriPos = this.gameObject.transform.position;
     }
 
     private void CommonUpdate()
@@ -89,6 +95,22 @@ public class MonsterAIController : Monster
         //체력이 0보다 작거나 같아 질 경우 DIE 상태로 전환
         if(currentHp <= 0)
             ChangeState(MonsterState.DIE);
+
+
+        if ((float)MonsterDie.Instance.CopyDieMonsterCount("mushroom") % 3 == 0.0f && !MonsterSpawner.Instance.isSpawnMushRoom)
+        {
+            Invoke("InitMonster_MushRoom", 5.0f);
+        }
+
+        if ((float)MonsterDie.Instance.CopyDieMonsterCount("radish") % 3 == 0.0f && !MonsterSpawner.Instance.isSpawnRadish)
+        {
+            Invoke("InitMonster_Radish", 5.0f);
+        }
+
+        if ((float)MonsterDie.Instance.CopyDieMonsterCount("crystal") % 3 == 0.0f && !MonsterSpawner.Instance.isSpawnCrystal)
+        {
+            Invoke("InitMonster_Crystal", 5.0f);
+        }
     }
 
     private void IDLE(StateFlow stateFlow)
@@ -106,11 +128,12 @@ public class MonsterAIController : Monster
 
             case StateFlow.UPDATE:
                 {
+                    //agent 켜기
+                    agent.enabled = true;
+
                     //몬스터 시야에 발각 || 몬스터가 피격당함
                     if (isSeePlayer || isHit)
                     {
-                        //원래있던위치를 저장함.
-                        oriPos = this.gameObject.transform.position;
                         Invoke("WaitChangeToTrace", 0.4f);
                     }
                 }
@@ -127,7 +150,8 @@ public class MonsterAIController : Monster
         switch (stateFlow)
         {
             case StateFlow.ENTER:
-                { }
+                {
+                }
                 break;
 
             case StateFlow.UPDATE:
@@ -178,7 +202,7 @@ public class MonsterAIController : Monster
                     agent.SetDestination(Player.position);
 
                     //플레이어와의 거리가 가까울 경우, ATTACK으로 상태전환
-                    if (Vector3.Distance(Player.position, this.transform.position) <= 1.4f)
+                    if (Vector3.Distance(Player.position, this.transform.position) <= 1.6f)
                     {
                         ChangeState(MonsterState.ATTACK);
                     }
@@ -218,7 +242,7 @@ public class MonsterAIController : Monster
                     }
 
                     //플레이어와의 거리가 멀어진 경우, TRACE으로 상태전환
-                    if (Vector3.Distance(Player.position, this.transform.position) >= 1.5f)
+                    if (Vector3.Distance(Player.position, this.transform.position) >= 1.7f)
                     {
                         ChangeState(MonsterState.TRACE);
                     }
@@ -241,6 +265,8 @@ public class MonsterAIController : Monster
         {
             case StateFlow.ENTER:
                 {
+                    agent.enabled = false;
+
                     MonsterSpawner.Instance.MonsterRespawnCheck(_name);
 
                     SetAnimationName("isDie");
@@ -265,7 +291,7 @@ public class MonsterAIController : Monster
             case StateFlow.UPDATE:
                 {
                     this.gameObject.tag = "Untagged";
-                    Invoke("WaitDieActiveFalse", 2.0f);
+                    Invoke("WaitDieActiveFalse", 1.5f);
                 }
                 break;
 
@@ -276,15 +302,30 @@ public class MonsterAIController : Monster
         }
     }
 
+    #region  Invoker
     private void WaitChangeToWalk()
     {
         ChangeState(MonsterState.WALK);
     }
-    
+
     private void WaitChangeToTrace()
     {
         ChangeState(MonsterState.TRACE);
     }
+
+    private void WaitDieActiveFalse()
+    {
+        //this.gameObject.SetActive(false);
+
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        this.gameObject.transform.GetChild(2).gameObject.SetActive(false);
+
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        this.gameObject.GetComponent<Degree>().enabled = false;
+    }
+    #endregion
+
 
 
     //현재 AI의 행동에 따라서 agent 값과 애니메이션 스피트를 바꿔주는 함수
@@ -353,11 +394,7 @@ public class MonsterAIController : Monster
         }
     }
 
-    private void WaitDieActiveFalse()
-    {
-        InitMonster();
-        this.gameObject.SetActive(false);
-    }
+
 
     IEnumerator WaitCoroutine()
     {
@@ -384,26 +421,122 @@ public class MonsterAIController : Monster
     }
 
 
-
-    //몬스터를 초기상태로 초기화함.
-    protected void InitMonster()
+    //버섯몬스터를 초기상태로 초기화함.
+    protected void InitMonster_MushRoom()
     {
-        //체력, 애니메이션상태
-        currentHp = 100;
-        HpFill.fillAmount = (float)currentHp / hp;
+        if(this.gameObject.name == "Mon01_mushroom(Clone)")
+        {
+            agent.enabled = false;
 
-        SetAnimationName("isIdle");
-        ChangeAgentComponent("isIdle");
+            healthBarBackGround.SetActive(false);
 
-        Mon_animator.SetBool("isIdle", true);
-        Mon_animator.SetBool("isTrace", false);
-        Mon_animator.SetBool("isAttack", false);
-        Mon_animator.SetBool("isWalk", false);
-        Mon_animator.SetBool("isDie", false);
+            //체력, 애니메이션상태
+            currentHp = 100;
+            HpFill.fillAmount = (float)currentHp / hp;
 
-        isSeePlayer = false;
-        isHit = false;
+            SetAnimationName("isIdle");
+            ChangeAgentComponent("isIdle");
 
-        ChangeState(MonsterState.IDLE);
+            Mon_animator.SetBool("isIdle", true);
+            Mon_animator.SetBool("isTrace", false);
+            Mon_animator.SetBool("isAttack", false);
+            Mon_animator.SetBool("isWalk", false);
+            Mon_animator.SetBool("isDie", false);
+
+            isSeePlayer = false;
+            isHit = false;
+            isDieflag = false;
+
+            this.gameObject.tag = _name;
+
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(2).gameObject.SetActive(true);
+
+            this.gameObject.GetComponent<BoxCollider>().enabled = true;
+            this.gameObject.GetComponent<Degree>().enabled = true;
+
+            ChangeState(MonsterState.IDLE);
+        }
+        
     }
-}
+
+    protected void InitMonster_Radish()
+    {
+        if (this.gameObject.name == "Mon02_radish(Clone)")
+        {
+            agent.enabled = false;
+
+            healthBarBackGround.SetActive(false);
+
+            //체력, 애니메이션상태
+            currentHp = 100;
+            HpFill.fillAmount = (float)currentHp / hp;
+
+            SetAnimationName("isIdle");
+            ChangeAgentComponent("isIdle");
+
+            Mon_animator.SetBool("isIdle", true);
+            Mon_animator.SetBool("isTrace", false);
+            Mon_animator.SetBool("isAttack", false);
+            Mon_animator.SetBool("isWalk", false);
+            Mon_animator.SetBool("isDie", false);
+
+            isSeePlayer = false;
+            isHit = false;
+            isDieflag = false;
+
+            this.gameObject.tag = _name;
+
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(2).gameObject.SetActive(true);
+
+            this.gameObject.GetComponent<BoxCollider>().enabled = true;
+            this.gameObject.GetComponent<Degree>().enabled = true;
+
+            ChangeState(MonsterState.IDLE);
+        }
+
+    }
+
+    protected void InitMonster_Crystal()
+    {
+        if (this.gameObject.name == "Mon03_crystal(Clone)")
+        {
+            agent.enabled = false;
+
+            healthBarBackGround.SetActive(false);
+
+            //체력, 애니메이션상태
+            currentHp = 100;
+            HpFill.fillAmount = (float)currentHp / hp;
+
+            SetAnimationName("isIdle");
+            ChangeAgentComponent("isIdle");
+
+            Mon_animator.SetBool("isIdle", true);
+            Mon_animator.SetBool("isTrace", false);
+            Mon_animator.SetBool("isAttack", false);
+            Mon_animator.SetBool("isWalk", false);
+            Mon_animator.SetBool("isDie", false);
+
+            isSeePlayer = false;
+            isHit = false;
+            isDieflag = false;
+
+            this.gameObject.tag = _name;
+
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(2).gameObject.SetActive(true);
+
+            this.gameObject.GetComponent<BoxCollider>().enabled = true;
+            this.gameObject.GetComponent<Degree>().enabled = true;
+
+            ChangeState(MonsterState.IDLE);
+        }
+
+    }
+}    
+

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterSpawner : MonoBehaviour
 {
     ObjectPooler objectPooler;
+
     public Transform[] mushRoomPos;
     public Transform[] radishPos;
     public Transform[] crystalPos;
@@ -12,9 +13,10 @@ public class MonsterSpawner : MonoBehaviour
     //게임 시작하면 최초 몬스터를 한번 스폰한다.
     private bool isSpawnMonsterOnce = false;
 
-    private bool isSpawnMushRoom = false;
-    private bool isSpawnRadish = false;
-    private bool isSpawnCrystal = false;
+
+    [HideInInspector] public bool isSpawnMushRoom = false;
+    [HideInInspector] public bool isSpawnRadish = false;
+    [HideInInspector] public bool isSpawnCrystal = false;
 
     #region Singleton
 

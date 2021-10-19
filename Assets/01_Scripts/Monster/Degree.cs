@@ -22,6 +22,8 @@ public class Degree : MonoBehaviour
     private GameObject playerTr;
     private int playerLayer;
 
+    private GameObject monsterTr;
+
     private Coroutine runningCoroutine = null;
 
     MonsterAIController _scrMon;
@@ -38,6 +40,7 @@ public class Degree : MonoBehaviour
     void Start()
     {
         playerTr = GameObject.Find("Player");
+        monsterTr = this.gameObject;
         _scrMon = this.gameObject.GetComponent<MonsterAIController>();
 
         runningCoroutine = StartCoroutine(CctvRay());
@@ -51,13 +54,13 @@ public class Degree : MonoBehaviour
     {
         while (true)
         {
-            isViewPlayer(this.gameObject, playerTr);
+            isViewPlayer(monsterTr, playerTr);
 
             //바닥범위안에 있는가
             if (isTracePlayer(viewAngle, viewRange))
             {
                 //ray를 맞고 있는가
-                if (isViewPlayer(this.gameObject, playerTr))
+                if (isViewPlayer(monsterTr, playerTr))
                 {
                     //몬스터에게 발각
                     _scrMon.isSeePlayer = true;
@@ -82,6 +85,7 @@ public class Degree : MonoBehaviour
                            0,
                            Mathf.Cos(angle * Mathf.Deg2Rad));
     }
+
 
     //반경범위내에 플레이어있는지 판단
     public bool isTracePlayer(float _viewAngle, float _viewRange)
@@ -134,6 +138,7 @@ public class Degree : MonoBehaviour
         else
             Debug.DrawRay(new Vector3(RayObj.transform.position.x, RayObj.transform.position.y + rayHeight, RayObj.transform.position.z)
                 , dir * maxDistance, Color.red);
+
 
         //Raycast를 투사하여 장애물이 있는지를 판단
         if (Physics.Raycast(new Vector3(RayObj.transform.position.x, RayObj.transform.position.y + rayHeight, RayObj.transform.position.z)
