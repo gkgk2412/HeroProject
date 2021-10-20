@@ -281,8 +281,10 @@ public class MonsterAIController : Monster
                     if(!isDieflag)
                     {
                         isDieflag = true;
-                        CollectObjective.Instance.UpdateItemCount(_name);                        
+
                         MonsterDie.Instance.UpdateDictionary(MonsterDie.Instance.DieMonsterDic, _name, 1);
+                        QuestLog.Instance.UpdateSelected();
+
                         //Debug.Log("name " + _name + "  count " + MonsterDie.Instance.GetDieMonsterCount(_name));
                     }               
                 }
@@ -502,7 +504,7 @@ public class MonsterAIController : Monster
 
     protected void InitMonster_Crystal()
     {
-        if (this.gameObject.name == "Mon03_crystal(Clone)")
+        if (this.gameObject.name == "Mon03_cystal(Clone)")
         {
             agent.enabled = false;
 

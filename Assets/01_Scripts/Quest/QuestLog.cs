@@ -1,10 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class QuestLog : MonoBehaviour
 {
+    public int QuestGold;
+
+    public UnityEvent QuestClearEvnet;
+    public UnityEvent QuestNClearEvnet;
+
     [SerializeField]
     private GameObject questPrefab;
 
@@ -12,7 +16,6 @@ public class QuestLog : MonoBehaviour
     private Transform questParent;
 
     private Quest selected;
-    private Monster monster;
 
     [SerializeField]
     private Text questDescription;
@@ -48,7 +51,12 @@ public class QuestLog : MonoBehaviour
     public void UpdateSelected()
     {
         ShowDescription(selected);
-    }    
+    }
+
+    public Quest GetSelectedQuest()
+    {
+        return selected;
+    }
 
     public void ShowDescription(Quest quest)
     {
@@ -65,9 +73,35 @@ public class QuestLog : MonoBehaviour
 
         foreach (Objective obj in quest.MyCollectObjectives)
         {
+            if(obj.MyType == quest.wantedName)
+            {
+                obj.MyCurrentAmount = MonsterDie.Instance.GetDieMonsterCount(quest.wantedName);
+
+                //지정된 수만큼 몬스터 처치 시
+                if(obj.MyCurrentAmount >= obj.MyAmount)
+                {
+                    obj.MyCurrentAmount = obj.MyAmount;
+                    QuestGold = quest.MyTakeGold;
+                    EventFunc_Clear();
+                }
+                else
+                    EventFunc_N_Clear();
+            }
+
+
             objectives += obj.MyType + " : " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
         }
 
         questDescription.text = string.Format("<b>{0}</b>\n\n<size=40>{1}</size>\n\n진행사항\n<size=40>{2}</size>", title, quest.MyDescription, objectives);
+    }
+
+    public void EventFunc_Clear()
+    {
+        QuestClearEvnet.Invoke();
+    }
+
+    public void EventFunc_N_Clear()
+    {
+        QuestNClearEvnet.Invoke();
     }
 }

@@ -86,6 +86,7 @@
     <Compile Include="Assets\01_Scripts\Dialogue\InteractiveDialogueEvent.cs" />
     <Compile Include="Assets\01_Scripts\Event\InteractUI.cs" />
     <Compile Include="Assets\01_Scripts\Event\PlayerColliderEvent.cs" />
+    <Compile Include="Assets\01_Scripts\Event\QuestClearEvent.cs" />
     <Compile Include="Assets\01_Scripts\Event\TutoColEvent.cs" />
     <Compile Include="Assets\01_Scripts\Event\interactiveEvent.cs" />
     <Compile Include="Assets\01_Scripts\FPS.cs" />

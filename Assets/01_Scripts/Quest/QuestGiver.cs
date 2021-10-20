@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class QuestGiver : MonoBehaviour
 {
-    [SerializeField]
-    private Quest[] quests;
+    public Quest[] quests;
 
     //Debugging
     [SerializeField]
     private QuestLog tmpLog;
 
     [SerializeField] private QuestAlarm _questAlarm;
+    
 
     //Main Quest를 받은 상태이면 
     public void MainQuestEvent()

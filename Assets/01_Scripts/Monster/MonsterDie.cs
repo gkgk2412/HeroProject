@@ -7,6 +7,7 @@ public class MonsterDie : MonoBehaviour
     private int copyDieCount_mushroom = 0;
     private int copyDieCount_radish = 0;
     private int copyDieCount_crystal = 0;
+    private int copyDieCount_BigBear = 0;
 
     private static MonsterDie instance;
     public static MonsterDie Instance => instance;
@@ -55,13 +56,27 @@ public class MonsterDie : MonoBehaviour
             copyDieCount_crystal = value;
         }
     }
+    
+    public int MyRabbit
+    {
+        get
+        {
+            return copyDieCount_BigBear;
+        }
+
+        set
+        {
+            copyDieCount_BigBear = value;
+        }
+    }
 
     //죽은몬스터 count 확인 용
     public Dictionary<string, int> DieMonsterDic = new Dictionary<string, int>()
     {
         {"mushroom", 0},
         {"radish", 0},
-        {"crystal", 0}
+        {"crystal", 0},
+        {"BigBear", 0}
     };
 
     public void UpdateDictionary(Dictionary<string, int> dic, string key, int newValue)
@@ -108,6 +123,13 @@ public class MonsterDie : MonoBehaviour
             copyDieCount_crystal = GetDieMonsterCount(type);
 
             return copyDieCount_crystal;
+        }
+        
+        else if (type == "BigBear")
+        {
+            copyDieCount_BigBear = GetDieMonsterCount(type);
+
+            return copyDieCount_BigBear;
         }
 
         return 0;

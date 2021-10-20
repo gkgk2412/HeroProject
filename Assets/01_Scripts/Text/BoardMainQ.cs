@@ -10,7 +10,7 @@ public class BoardMainQ : MonoBehaviour
         //Main Quest를 받은 상태이면 
         if(GameManager.Instance.GetQuestCheck())
         {
-            string message = "히어로 가문의 명예를 걸고 끔찍한 괴물 토끼를 물리치세요!";
+            string message = "히어로 가문의 명예를 걸고 끔찍한 괴물 곰을 물리치세요!";
 
             this.GetComponent<Text>().text = message;
         }

@@ -24,10 +24,10 @@ public class PlayerControlManager: MonoBehaviour
     [SerializeField]
     private int gold;                       // 캐릭터가 가진 골드
 
-    private int arrowCount;             // 캐릭터가 쏠 수 있는 화살 수
+    private int arrowCount;                 // 캐릭터가 쏠 수 있는 화살 수
 
     [SerializeField]
-    private float curHealth;                 // 캐릭터의 체력
+    private float curHealth;                // 캐릭터의 체력
     /*-----------------------------------------------------------------------------------------------------------*/
 
     CommandKey btnJump, btnRun, btnAttack;
