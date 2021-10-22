@@ -2864,7 +2864,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 544
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
@@ -8439,7 +8439,7 @@ GameObject:
   - component: {fileID: 366452702}
   - component: {fileID: 366452701}
   - component: {fileID: 366452700}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GoldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8652,7 +8652,7 @@ GameObject:
   - component: {fileID: 373193169}
   - component: {fileID: 373193168}
   - component: {fileID: 373193171}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10523,7 +10523,7 @@ GameObject:
   - component: {fileID: 465690416}
   - component: {fileID: 465690415}
   - component: {fileID: 465690418}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: PlayerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10600,9 +10600,9 @@ Canvas:
   m_GameObject: {fileID: 465690413}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 963194227}
+  m_PlaneDistance: 2
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -12941,7 +12941,7 @@ GameObject:
   - component: {fileID: 554008501}
   - component: {fileID: 554008503}
   - component: {fileID: 554008502}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17434,7 +17434,7 @@ GameObject:
   - component: {fileID: 760156671}
   - component: {fileID: 760156670}
   - component: {fileID: 760156669}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: StaminaBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22103,7 +22103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 954976993}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24385,7 +24385,7 @@ GameObject:
   - component: {fileID: 1052411564}
   - component: {fileID: 1052411563}
   - component: {fileID: 1052411562}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: QuestInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24959,7 +24959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 127884, guid: 1fde98fbed0605e4fb7ee707e6ca1d2e, type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 401728, guid: 1fde98fbed0605e4fb7ee707e6ca1d2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26333,7 +26333,7 @@ GameObject:
   - component: {fileID: 1120033892}
   - component: {fileID: 1120033891}
   - component: {fileID: 1120033890}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31858,7 +31858,7 @@ GameObject:
   - component: {fileID: 1333729394}
   - component: {fileID: 1333729396}
   - component: {fileID: 1333729395}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32211,7 +32211,7 @@ GameObject:
   - component: {fileID: 1348089157}
   - component: {fileID: 1348089159}
   - component: {fileID: 1348089158}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: interactiveUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38007,7 +38007,7 @@ GameObject:
   - component: {fileID: 1486048827}
   - component: {fileID: 1486048829}
   - component: {fileID: 1486048828}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: hptext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38459,7 +38459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1499863790}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50792,7 +50792,7 @@ GameObject:
   - component: {fileID: 1887898729}
   - component: {fileID: 1887898731}
   - component: {fileID: 1887898730}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: StaminaBarBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51152,7 +51152,7 @@ GameObject:
   - component: {fileID: 1902397878}
   - component: {fileID: 1902397877}
   - component: {fileID: 1902397876}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: QuestCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51227,9 +51227,9 @@ Canvas:
   m_GameObject: {fileID: 1902397874}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 963194227}
+  m_PlaneDistance: 2
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -54256,7 +54256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2077982046}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stamina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54667,7 +54667,7 @@ GameObject:
   - component: {fileID: 2096932574}
   - component: {fileID: 2096932576}
   - component: {fileID: 2096932575}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: HPBarBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
