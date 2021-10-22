@@ -75,6 +75,9 @@
     <Compile Include="Assets\01_Scripts\ButtonUI\SubQuestText.cs" />
     <Compile Include="Assets\01_Scripts\Camera\CamShake.cs" />
     <Compile Include="Assets\01_Scripts\Camera\CameraController.cs" />
+    <Compile Include="Assets\01_Scripts\Camera\CameraTransform.cs" />
+    <Compile Include="Assets\01_Scripts\Camera\CloseUpCam.cs" />
+    <Compile Include="Assets\01_Scripts\Camera\SubCamera.cs" />
     <Compile Include="Assets\01_Scripts\Command\AttackCommand.cs" />
     <Compile Include="Assets\01_Scripts\Command\CommandKey.cs" />
     <Compile Include="Assets\01_Scripts\Command\JumpCommand.cs" />
@@ -84,23 +87,29 @@
     <Compile Include="Assets\01_Scripts\Dialogue\DialogueManager.cs" />
     <Compile Include="Assets\01_Scripts\Dialogue\DialogueParser.cs" />
     <Compile Include="Assets\01_Scripts\Dialogue\InteractiveDialogueEvent.cs" />
+    <Compile Include="Assets\01_Scripts\Event\BossColEvent.cs" />
     <Compile Include="Assets\01_Scripts\Event\InteractUI.cs" />
     <Compile Include="Assets\01_Scripts\Event\PlayerColliderEvent.cs" />
     <Compile Include="Assets\01_Scripts\Event\QuestClearEvent.cs" />
     <Compile Include="Assets\01_Scripts\Event\TutoColEvent.cs" />
     <Compile Include="Assets\01_Scripts\Event\interactiveEvent.cs" />
     <Compile Include="Assets\01_Scripts\FPS.cs" />
+    <Compile Include="Assets\01_Scripts\Fade\CurtainController.cs" />
+    <Compile Include="Assets\01_Scripts\Fade\FadeController.cs" />
     <Compile Include="Assets\01_Scripts\FloatingText\FloatingTextManager.cs" />
     <Compile Include="Assets\01_Scripts\FloatingText\FloatringText.cs" />
     <Compile Include="Assets\01_Scripts\GameManager.cs" />
+    <Compile Include="Assets\01_Scripts\Monster\BossController.cs" />
     <Compile Include="Assets\01_Scripts\Monster\Degree.cs" />
     <Compile Include="Assets\01_Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\01_Scripts\Monster\MonsterAIController.cs" />
     <Compile Include="Assets\01_Scripts\Monster\MonsterDie.cs" />
     <Compile Include="Assets\01_Scripts\Monster\MonsterHP.cs" />
     <Compile Include="Assets\01_Scripts\Monster\MonsterSpawner.cs" />
+    <Compile Include="Assets\01_Scripts\Player\AIMove.cs" />
     <Compile Include="Assets\01_Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\01_Scripts\Player\PlayerControlManager.cs" />
+    <Compile Include="Assets\01_Scripts\Player\PlayerMoveAuto.cs" />
     <Compile Include="Assets\01_Scripts\Quest\Quest.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestAlarm.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestGiver.cs" />
@@ -712,6 +721,12 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Users/gkgk2/OneDrive/바탕 화면/Github_this/HeroProject/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>C:/Users/gkgk2/OneDrive/바탕 화면/Github_this/HeroProject/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>C:/Users/gkgk2/OneDrive/바탕 화면/Github_this/HeroProject/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

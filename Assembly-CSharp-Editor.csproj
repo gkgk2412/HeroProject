@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\Editor\CustomEditorList.cs" />
     <Compile Include="Assets\01_Scripts\Editor\InteractEditor.cs" />
+    <Compile Include="Assets\01_Scripts\Editor\PlayerAutoMoveEditor.cs" />
     <Compile Include="Assets\01_Scripts\Editor\ViewEditor.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/2019.4.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -650,6 +651,12 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Users/gkgk2/OneDrive/바탕 화면/Github_this/HeroProject/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>C:/Users/gkgk2/OneDrive/바탕 화면/Github_this/HeroProject/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>C:/Users/gkgk2/OneDrive/바탕 화면/Github_this/HeroProject/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

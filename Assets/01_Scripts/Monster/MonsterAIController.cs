@@ -204,6 +204,7 @@ public class MonsterAIController : Monster
                     //플레이어와의 거리가 가까울 경우, ATTACK으로 상태전환
                     if (Vector3.Distance(Player.position, this.transform.position) <= 1.6f)
                     {
+                        agent.isStopped = true;
                         ChangeState(MonsterState.ATTACK);
                     }
 
@@ -244,6 +245,7 @@ public class MonsterAIController : Monster
                     //플레이어와의 거리가 멀어진 경우, TRACE으로 상태전환
                     if (Vector3.Distance(Player.position, this.transform.position) >= 1.7f)
                     {
+                        agent.isStopped = false;
                         ChangeState(MonsterState.TRACE);
                     }
                 }
