@@ -70,6 +70,11 @@
     <Compile Include="Assets\01_Scripts\Arrow\ObjectPooler.cs" />
     <Compile Include="Assets\01_Scripts\BarUI\HPBar.cs" />
     <Compile Include="Assets\01_Scripts\BarUI\staminaBar.cs" />
+    <Compile Include="Assets\01_Scripts\Boss\BezierCurve\BezierCurve.cs" />
+    <Compile Include="Assets\01_Scripts\Boss\BezierCurve\BezierRock.cs" />
+    <Compile Include="Assets\01_Scripts\Boss\Boss.cs" />
+    <Compile Include="Assets\01_Scripts\Boss\BossController.cs" />
+    <Compile Include="Assets\01_Scripts\Boss\boss_hp.cs" />
     <Compile Include="Assets\01_Scripts\ButtonUI\QuestInfoBut.cs" />
     <Compile Include="Assets\01_Scripts\ButtonUI\SubQuestBnt.cs" />
     <Compile Include="Assets\01_Scripts\ButtonUI\SubQuestText.cs" />
@@ -99,7 +104,6 @@
     <Compile Include="Assets\01_Scripts\FloatingText\FloatingTextManager.cs" />
     <Compile Include="Assets\01_Scripts\FloatingText\FloatringText.cs" />
     <Compile Include="Assets\01_Scripts\GameManager.cs" />
-    <Compile Include="Assets\01_Scripts\Monster\BossController.cs" />
     <Compile Include="Assets\01_Scripts\Monster\Degree.cs" />
     <Compile Include="Assets\01_Scripts\Monster\Monster.cs" />
     <Compile Include="Assets\01_Scripts\Monster\MonsterAIController.cs" />

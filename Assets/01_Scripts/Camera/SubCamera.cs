@@ -18,6 +18,7 @@ public class SubCamera : MonoBehaviour
     bool isTriggerBoss01 = false;
     bool isTriggerBoss02 = false;
     bool isTriggerFirstEvent = false;
+    bool isOnce = false;
 
     Camera _camera;
     Animator boss_ani;
@@ -109,7 +110,11 @@ public class SubCamera : MonoBehaviour
 
     public void WaitBossAni()
     {
-        boss_ani.SetBool("isStartEvent", true);
+        if(!isOnce)
+        {
+            boss_ani.SetBool("isStartEvent", true);
+            isOnce = true;
+        }
         Invoke("EventCurtainOff", 2.5f);
     }
 

@@ -47,6 +47,7 @@ public class FadeController : MonoBehaviour
 			if (tempColor.a >= 1f)
 			{
 				tempColor.a = 1f;
+				yield break;
 			}
 
 			ima.color = tempColor;
@@ -70,7 +71,11 @@ public class FadeController : MonoBehaviour
 
 			fadeColor = tempColor.a;
 
-			if (tempColor.a <= 0f) tempColor.a = 0f;
+			if (tempColor.a <= 0f)
+			{
+				tempColor.a = 0f;
+				yield break;
+			}
 
 			ima.color = tempColor;
 
