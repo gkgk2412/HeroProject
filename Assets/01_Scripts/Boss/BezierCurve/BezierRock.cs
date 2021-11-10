@@ -38,7 +38,7 @@ public class BezierRock : MonoBehaviour
 
             else
             {
-                Destroy(this.gameObject, 4.0f);
+                Destroy(this.gameObject, 3.0f);
             }
 
             yield return YieldInstructionCache.WaitForFixedUpdate;
@@ -48,9 +48,14 @@ public class BezierRock : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //캐릭터나 바닥에 닿으면 베지어 끝내기
-        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Bottom")
+        if(other.gameObject.tag == "Player")
         {
             isBezier = false;
+        }
+
+        if (other.gameObject.tag == "Bottom")
+        {
+            this.transform.GetChild(1).GetComponent<BoxCollider>().enabled = false;
         }
     }
 }

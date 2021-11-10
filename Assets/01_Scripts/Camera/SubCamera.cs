@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class SubCamera : MonoBehaviour
 {
+    public CameraController _CameraController;
+
     public GameObject MainCamera;
     public GameObject boss;
 
@@ -132,5 +134,7 @@ public class SubCamera : MonoBehaviour
 
         //움직일 수 있도록...
         GameManager.Instance.PlayerStateChange("LIVE");
+
+        _CameraController.MyCameraBoss = true;
     }
 }

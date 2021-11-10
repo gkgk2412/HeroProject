@@ -74,23 +74,23 @@ public class BezierCurve : MonoBehaviour
     }
     #endregion
 
-    public float height;
+    public float Bheight;
+    public float Pheight;
 
     public GameObject rockPrefab;
 
     public void Update()
     {
-        P1 = new Vector3(b_Pos.position.x, b_Pos.position.y + 2.0f, b_Pos.position.z);
-        P2 = new Vector3(b_Pos.position.x, b_Pos.position.y + height, b_Pos.position.z);
+        P1 = new Vector3(b_Pos.position.x, b_Pos.position.y + Bheight, b_Pos.position.z);
+        P2 = new Vector3(b_Pos.position.x, b_Pos.position.y + Pheight, b_Pos.position.z);
+    }
 
-        //조건은 스킬 발동
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            P3 = new Vector3(p_Pos.position.x, p_Pos.position.y + height, p_Pos.position.z);
-            P4 = new Vector3(p_Pos.position.x, p_Pos.position.y + 0.5f, p_Pos.position.z);
+    public void SkillRock()
+    {
+        P3 = new Vector3(p_Pos.position.x, p_Pos.position.y + Pheight, p_Pos.position.z);
+        P4 = new Vector3(p_Pos.position.x, p_Pos.position.y + 0.5f, p_Pos.position.z);
 
-            GameObject obj = Instantiate(rockPrefab);
-        }
+        GameObject obj = Instantiate(rockPrefab);
     }
 
     public Vector3 BezierCurveFunc(Vector3 p_1, Vector3 p_2, Vector3 p_3, Vector3 p_4, float _speed)

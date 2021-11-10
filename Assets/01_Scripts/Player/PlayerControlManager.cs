@@ -329,4 +329,26 @@ public class PlayerControlManager: MonoBehaviour
     {
         gold = _gold;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Rock")
+        {
+            other.GetComponent<BoxCollider>().enabled = false;
+
+            float damage = 10.0f;
+
+            if (MyCurHP > 0)
+            {
+                MyCurHP = MyCurHP - damage;
+
+                string message = damage.ToString();
+
+                FloatingTextManager.instance.CreateFloatingPlayerDamageText(new Vector3(this.transform.position.x, this.transform.position.y + 1.0f, this.transform.position.z), message);
+            }
+
+            if (MyCurHP <= 0)
+                MyCurHP = 0;
+        }
+    }
 }
