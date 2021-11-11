@@ -9,11 +9,13 @@ public class BossController : Boss
     private Rigidbody rb;
 
     public GameObject bossUI;
+    public GameObject bossEventPanel;
+    public BoxCollider bossRoomWall;
 
     private bool isGround = false;
     private bool isSkill2_do = false;
+    private bool isBossDie = false;
 
-    private int randNum;
 
     #region Internal-------------------------- # Please close # --------------------------
     private enum StateFlow
@@ -48,9 +50,6 @@ public class BossController : Boss
         //땅에 닿으면
         if (isGround)
         {
-            //nav agent 작동
-            //_bossAgent.enabled = true;
-
             //약 1초 후에 보스 체력바 등 UI 띄우기
             Invoke("ShowUI", 1.0f);
         }
@@ -114,28 +113,24 @@ public class BossController : Boss
                         _bossAnimator.SetBool("isIdle", true);
                         _bossAnimator.SetBool("isThrow", false);
                         _bossAnimator.SetBool("isBodyBlow", false);
-                        randNum = Random.RandomRange(0, 2); //0~2까지 중 1개 선택
                     }
                     break;
 
                 case StateFlow.UPDATE:
                     {
-                        Debug.Log("randNum  : " + randNum);
                         isSkill2_do = false;
 
                         if (isGround)
                             LookPlayer();
 
-                        //5초 간격으로 스킬 3개 중 1개를 실행한다.
-                        if (randNum == 0)
+                        if (Input.GetKeyDown(KeyCode.W))
                         {
-                            Invoke("InvokeSkill01", 5.0f);
-                            randNum = 99;
+                            ChangeState(BossState.SKILL01_ROCK_THROW);
                         }
-                        else if (randNum == 1)
+
+                        if (Input.GetKeyDown(KeyCode.Q))
                         {
-                            Invoke("InvokeSkill02", 5.0f);
-                            randNum = 99;
+                            ChangeState(BossState.SKILL02_BODY_BlOW);
                         }
                     }
                     break;
@@ -194,7 +189,7 @@ public class BossController : Boss
                     _bossAnimator.SetBool("isBodyBlow", true);
 
                     if(!isSkill2_do)
-                        Invoke("Skill02", 1.5f);
+                        Invoke("Skill02", 1.0f);
 
                     //직선으로 뛰기
                     if(isSkill2_do)
@@ -218,12 +213,21 @@ public class BossController : Boss
         {
             case StateFlow.ENTER:
                 {
+                    MonsterDie.Instance.UpdateDictionary(MonsterDie.Instance.DieMonsterDic, this.gameObject.name, 1);
+                    QuestLog.Instance.UpdateSelected();
+
+                    isBossDie = true;
                 }
                 break;
 
             case StateFlow.UPDATE:
                 {
                     _CameraController.MyCameraBoss = false;
+                    bossRoomWall.isTrigger = true;
+
+                    Destroy(this.gameObject, 5.0f);
+                    bossEventPanel.SetActive(false);
+                    bossUI.SetActive(false);
                 }
                 break;
 
@@ -236,7 +240,8 @@ public class BossController : Boss
 
     private void ShowUI()
     {
-        bossUI.SetActive(true);
+        if(!isBossDie)
+            bossUI.SetActive(true);
     }
 
     //subCamera.cs에서 event를 통해서 호출
@@ -259,32 +264,26 @@ public class BossController : Boss
         isSkill2_do = true;
     }
 
-    private void InvokeSkill01()
-    {
-        ChangeState(BossState.SKILL01_ROCK_THROW);
-    }
-
-    private void InvokeSkill02()
-    {
-        ChangeState(BossState.SKILL02_BODY_BlOW);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //스킬 2 시전하는 상태일 때 플레이어나 충돌벽에 부딪히면 멈춤
-        if(isSkill2_do && collision.gameObject.tag == "StopBoss")
-        {
-            //idle로 복귀
-            ChangeState(BossState.IDLE);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if(isSkill2_do && other.gameObject.tag == "StopBoss")
         {
             //idle로 복귀
             ChangeState(BossState.IDLE);
+        }
+
+        if (isSkill2_do && other.gameObject.tag == "StopBoss_damage")
+        {
+            //idle로 복귀
+            ChangeState(BossState.IDLE);
+
+            DmgAttack(30.0f);
+        }
+
+        if (other.gameObject.tag == "spear" || other.gameObject.tag == "spear2" || other.gameObject.tag == "spear3" || other.gameObject.tag == "spear4" || other.gameObject.tag == "spear5")
+        {
+            SetDamage(1.0f);
+            boss_hp.Instance._HPBar.fillAmount = (float)b_CurrentHp / b_hp;
         }
     }
 }

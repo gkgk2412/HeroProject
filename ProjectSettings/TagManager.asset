@@ -17,6 +17,7 @@ TagManager:
   - Bottom
   - StopBoss
   - Rock
+  - StopBoss_damage
   layers:
   - Default
   - TransparentFX

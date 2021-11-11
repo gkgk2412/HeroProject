@@ -55,6 +55,7 @@ public class BezierRock : MonoBehaviour
 
         if (other.gameObject.tag == "Bottom")
         {
+            isBezier = false;
             this.transform.GetChild(1).GetComponent<BoxCollider>().enabled = false;
         }
     }

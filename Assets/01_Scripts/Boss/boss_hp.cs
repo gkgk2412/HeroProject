@@ -5,11 +5,19 @@ using UnityEngine.UI;
 
 public class boss_hp : MonoBehaviour
 {
+    private static boss_hp instance;
+    public static boss_hp Instance => instance;
+
+    public boss_hp()
+    {
+        //자기 자신에 대한 정보를 static 형태의 instacne 변수에 저장하여 외부에서 접근이 쉽도록 함
+        instance = this;
+    }
+
     [SerializeField]
     private BossController _bossScr;
 
-    [SerializeField]
-    private Image _HPBar;
+    public Image _HPBar;
     
     [SerializeField]
     private Text _HpText;
@@ -18,6 +26,9 @@ public class boss_hp : MonoBehaviour
 
     private void Update()
     {
+        if (_bossScr.b_CurrentHp <= 0)
+            _bossScr.b_CurrentHp = 0;
+
         string message = _bossScr.b_CurrentHp.ToString() + "%";
         _HpText.text = message;
 

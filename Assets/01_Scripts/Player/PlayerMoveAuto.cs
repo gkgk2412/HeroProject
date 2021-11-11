@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class PlayerMoveAuto : MonoBehaviour
 {
     public UnityEvent _bossEvnet02;
+    public BoxCollider bossRoomWall;
 
     [HideInInspector]
     public Vector3[] wayPoints;         // 이동포인트 배열
@@ -48,6 +49,7 @@ public class PlayerMoveAuto : MonoBehaviour
                 FadeController.Instance.FadeIn(2.0f, null);
                 pAnimator.SetBool("isAutoMove", false);
 
+                bossRoomWall.isTrigger = false;
                 Invoke("WaitFadeOut", 3.0f);
                 yield break;
             }

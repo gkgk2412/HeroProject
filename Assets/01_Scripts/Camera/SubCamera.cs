@@ -21,6 +21,7 @@ public class SubCamera : MonoBehaviour
     bool isTriggerBoss02 = false;
     bool isTriggerFirstEvent = false;
     bool isOnce = false;
+    bool Once = false;
 
     Camera _camera;
     Animator boss_ani;
@@ -135,6 +136,10 @@ public class SubCamera : MonoBehaviour
         //움직일 수 있도록...
         GameManager.Instance.PlayerStateChange("LIVE");
 
-        _CameraController.MyCameraBoss = true;
+        if (!Once)
+        {
+            _CameraController.MyCameraBoss = true;
+            Once = true;
+        }
     }
 }

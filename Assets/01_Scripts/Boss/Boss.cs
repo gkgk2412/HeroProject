@@ -18,11 +18,18 @@ public class Boss : MonoBehaviour
         IDLE,
         SKILL01_ROCK_THROW,
         SKILL02_BODY_BlOW,
+        SKILL03_BODY_BlOW,
         DIE
     }
 
     protected BossState startState = BossState.IDLE;
     protected BossState currentState;
+
+    protected float SetDamage(float damage)
+    {
+        b_CurrentHp -= damage;
+        return b_CurrentHp;
+    }
 
     public void DmgAttack(float damage)
     {
