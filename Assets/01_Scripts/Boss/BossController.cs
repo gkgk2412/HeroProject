@@ -8,13 +8,21 @@ public class BossController : Boss
     private Animator _bossAnimator;
     private Rigidbody rb;
 
+    public GameObject MainCamera;
+
     public GameObject bossUI;
     public GameObject bossEventPanel;
+    public GameObject Projector;
+    public GameObject Projector02;
+    public GameObject RealRange;
     public BoxCollider bossRoomWall;
 
     private bool isGround = false;
     private bool isSkill2_do = false;
+    private bool isSkill3_do = false;
     private bool isBossDie = false;
+
+    private bool isSkill3_Range = false;
 
 
     #region Internal-------------------------- # Please close # --------------------------
@@ -34,12 +42,16 @@ public class BossController : Boss
             case BossState.IDLE: IDLE(StateFlow.ENTER); break;
             case BossState.SKILL01_ROCK_THROW: SKILL01_ROCK_THROW(StateFlow.ENTER); break;
             case BossState.SKILL02_BODY_BlOW: SKILL02_BODY_BlOW(StateFlow.ENTER); break;
+            case BossState.SKILL03_JUMP: SKILL03_JUMP(StateFlow.ENTER); break;
             case BossState.DIE: DIE(StateFlow.ENTER); break;
         }
     }
 
     private void CommonUpdate()
     {
+        if (this.transform.position.y <= 9.8f)
+            this.transform.position = new Vector3(this.transform.position.x, 9.8f, this.transform.position.z);
+
         //보스의 체력이 0이면
         if (b_CurrentHp <= 0)
         {
@@ -64,6 +76,7 @@ public class BossController : Boss
             case BossState.IDLE: IDLE(StateFlow.UPDATE); break;
             case BossState.SKILL01_ROCK_THROW: SKILL01_ROCK_THROW(StateFlow.UPDATE); break;
             case BossState.SKILL02_BODY_BlOW: SKILL02_BODY_BlOW(StateFlow.UPDATE); break;
+            case BossState.SKILL03_JUMP: SKILL03_JUMP(StateFlow.UPDATE); break;
             case BossState.DIE: DIE(StateFlow.UPDATE); break;
         }
     }
@@ -75,6 +88,7 @@ public class BossController : Boss
             case BossState.IDLE: IDLE(StateFlow.EXIT); break;
             case BossState.SKILL01_ROCK_THROW: SKILL01_ROCK_THROW(StateFlow.EXIT); break;
             case BossState.SKILL02_BODY_BlOW: SKILL02_BODY_BlOW(StateFlow.EXIT); break;
+            case BossState.SKILL03_JUMP: SKILL03_JUMP(StateFlow.EXIT); break;
             case BossState.DIE: DIE(StateFlow.EXIT); break;
         }
 
@@ -85,6 +99,7 @@ public class BossController : Boss
             case BossState.IDLE: IDLE(StateFlow.ENTER); break;
             case BossState.SKILL01_ROCK_THROW: SKILL01_ROCK_THROW(StateFlow.ENTER); break;
             case BossState.SKILL02_BODY_BlOW: SKILL02_BODY_BlOW(StateFlow.ENTER); break;
+            case BossState.SKILL03_JUMP: SKILL03_JUMP(StateFlow.ENTER); break;
             case BossState.DIE: DIE(StateFlow.ENTER); break;
         }
     }
@@ -113,12 +128,14 @@ public class BossController : Boss
                         _bossAnimator.SetBool("isIdle", true);
                         _bossAnimator.SetBool("isThrow", false);
                         _bossAnimator.SetBool("isBodyBlow", false);
+                        _bossAnimator.SetBool("isJump", false);
                     }
                     break;
 
                 case StateFlow.UPDATE:
                     {
                         isSkill2_do = false;
+                        isSkill3_do = false;
 
                         if (isGround)
                             LookPlayer();
@@ -132,6 +149,11 @@ public class BossController : Boss
                         {
                             ChangeState(BossState.SKILL02_BODY_BlOW);
                         }
+
+                        if (Input.GetKeyDown(KeyCode.R))
+                        {
+                            ChangeState(BossState.SKILL03_JUMP);
+                        }
                     }
                     break;
 
@@ -142,6 +164,7 @@ public class BossController : Boss
             }
         }
     }
+
     private void SKILL01_ROCK_THROW(StateFlow stateFlow)
     {
         switch (stateFlow)
@@ -189,14 +212,51 @@ public class BossController : Boss
                     _bossAnimator.SetBool("isBodyBlow", true);
 
                     if(!isSkill2_do)
+                    {
+                        //범위를 보여준다.
+                        Projector.SetActive(true);
+
                         Invoke("Skill02", 1.0f);
+                    }
 
                     //직선으로 뛰기
                     if(isSkill2_do)
                     {
                         Vector3 movement = transform.forward.normalized * moveSpeed * Time.deltaTime;
                         rb.MovePosition(transform.position + movement);
+                        
+                        //범위 끈다.
+                        Projector.SetActive(false);
                     }                    
+                }
+                break;
+
+            case StateFlow.EXIT:
+                {
+                }
+                break;
+        }
+    }
+
+    private void SKILL03_JUMP(StateFlow stateFlow)
+    {
+        switch (stateFlow)
+        {
+            case StateFlow.ENTER:
+                {
+                }
+                break;
+
+            case StateFlow.UPDATE:
+                {
+                    _bossAnimator.SetBool("isIdle", false);
+                    _bossAnimator.SetBool("isJump", true);
+
+                    //실제로 위로 점프
+                    if (!isSkill3_do)
+                    {
+                        Invoke("Skill03", 0.8f);
+                    }
                 }
                 break;
 
@@ -262,6 +322,32 @@ public class BossController : Boss
     private void Skill02()
     {
         isSkill2_do = true;
+    }   
+    
+    private void Skill03()
+    {
+        this.GetComponent<BoxCollider>().enabled = false;
+        rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        isSkill3_do = true;
+
+        //범위 보여주기
+        Projector02.SetActive(true);
+
+        //실제 범위 옮기기
+        RealRange.transform.position = new Vector3(this.transform.position.x, realRange_yPos, this.transform.position.z);
+
+        //2초뒤 아주 빠르게 낙하
+        Invoke("BossDown", 2.0f);
+    }
+
+    private void BossDown()
+    {
+        this.GetComponent<BoxCollider>().enabled = true;
+
+        //범위 끄기
+        Projector02.SetActive(false);
+
+        rb.AddForce(Vector3.down * jumpPower * 2, ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -277,7 +363,7 @@ public class BossController : Boss
             //idle로 복귀
             ChangeState(BossState.IDLE);
 
-            DmgAttack(30.0f);
+            DmgAttack(20.0f);
         }
 
         if (other.gameObject.tag == "spear" || other.gameObject.tag == "spear2" || other.gameObject.tag == "spear3" || other.gameObject.tag == "spear4" || other.gameObject.tag == "spear5")
@@ -285,5 +371,33 @@ public class BossController : Boss
             SetDamage(1.0f);
             boss_hp.Instance._HPBar.fillAmount = (float)b_CurrentHp / b_hp;
         }
+
+        if (other.gameObject.tag == "Bottom" && isSkill3_do)
+        {
+            //idle로 복귀
+            ChangeState(BossState.IDLE);
+
+            //땅에 닿으면 진동
+            MainCamera.GetComponent<CamShake>().InCameraShake(0.5f, 0.3f);
+
+            //플레이어가 범위안에 있으면 데미지 + 튕겨나가기
+            if(isSkill3_Range)
+            {
+                DmgAttack(30.0f);
+                isSkill3_Range = false;
+
+                Player.transform.Translate(Vector3.up * Time.deltaTime * 50.0f, Camera.main.transform);
+            }
+        }
+    }
+
+    public void DmgExplo()
+    {
+        isSkill3_Range = true;
+    }
+    
+    public void DmgExploOut()
+    {
+        isSkill3_Range = false;
     }
 }

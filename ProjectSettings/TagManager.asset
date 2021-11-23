@@ -18,6 +18,7 @@ TagManager:
   - StopBoss
   - Rock
   - StopBoss_damage
+  - Range
   layers:
   - Default
   - TransparentFX
@@ -29,8 +30,8 @@ TagManager:
   - 
   - PLAYER
   - MainUI
-  - 
-  - 
+  - MONSTER
+  - ROCK
   - 
   - 
   - 

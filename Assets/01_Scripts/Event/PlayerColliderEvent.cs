@@ -7,6 +7,8 @@ public class PlayerColliderEvent : MonoBehaviour
 {
     public UnityEvent _tutoEvnet;
     public UnityEvent _bossEvnet;
+    public UnityEvent _skillThree;
+    public UnityEvent _skillThreeOut;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,6 +23,24 @@ public class PlayerColliderEvent : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        //보스 3번째 스킬 범위
+        if (other.gameObject.tag == "Range")
+        {
+            SkillThreeEvent();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //보스 3번째 스킬 범위
+        if (other.gameObject.tag == "Range")
+        {
+            SkillThreeEventOut();
+        }
+    }
+
     public void tutoColEvent()
     {
         _tutoEvnet.Invoke();
@@ -29,5 +49,15 @@ public class PlayerColliderEvent : MonoBehaviour
     public void BossColEvent()
     {
         _bossEvnet.Invoke();
+    }
+
+    public void SkillThreeEvent()
+    {
+        _skillThree.Invoke();
+    }
+
+    public void SkillThreeEventOut()
+    {
+        _skillThreeOut.Invoke();
     }
 }

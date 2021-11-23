@@ -43,7 +43,7 @@ public class Arrow : ArrowValue, IPooledObject
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag != "Player" && other.gameObject.tag != "StopBoss_damage")
+        if(other.gameObject.tag != "Player" && other.gameObject.tag != "StopBoss_damage" && other.gameObject.tag != "Bottom" && other.gameObject.tag != "Range")
         {
             this.gameObject.SetActive(false);
         }

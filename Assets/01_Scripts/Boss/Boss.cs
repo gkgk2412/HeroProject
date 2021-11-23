@@ -12,13 +12,15 @@ public class Boss : MonoBehaviour
     public float b_CurrentHp;
     public float moveSpeed;
     public float rotSpeed;
+    public float jumpPower;
+    public float realRange_yPos;
 
     public enum BossState
     {
         IDLE,
         SKILL01_ROCK_THROW,
         SKILL02_BODY_BlOW,
-        SKILL03_BODY_BlOW,
+        SKILL03_JUMP,
         DIE
     }
 
