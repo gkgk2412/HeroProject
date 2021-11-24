@@ -123,6 +123,7 @@
     <Compile Include="Assets\01_Scripts\Text\CoinText.cs" />
     <Compile Include="Assets\01_Scripts\Text\TextChangeManager.cs" />
     <Compile Include="Assets\01_Scripts\UpgradeStore\Store.cs" />
+    <Compile Include="Assets\01_Scripts\sound\Bgm.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\MecanimButton.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\03_Resources\SD_Project\Scripts\controller.cs" />

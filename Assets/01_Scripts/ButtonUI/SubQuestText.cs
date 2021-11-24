@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SubQuestText : MonoBehaviour
-{    
+{
+    public AudioSource audiosource;
+    public AudioClip audioClip;
+
     [SerializeField]
     private Text subDescriptionText = null;
 
@@ -68,6 +71,9 @@ public class SubQuestText : MonoBehaviour
     //버섯 text 클릭 시
     public void MushRoomClick()
     {
+        if (!audiosource.isPlaying)
+            audiosource.PlayOneShot(audioClip, 1.0f); 
+
         subQ1.color = Color.red;
         subQ2.color = Color.white;
         subQ3.color = Color.white;
@@ -85,6 +91,9 @@ public class SubQuestText : MonoBehaviour
     //무 text 클릭 시
     public void radishClick()
     {
+        if (!audiosource.isPlaying)
+            audiosource.PlayOneShot(audioClip, 1.0f);
+
         subQ1.color = Color.white;
         subQ2.color = Color.red;
         subQ3.color = Color.white;
@@ -102,6 +111,9 @@ public class SubQuestText : MonoBehaviour
     //수정골렘 text 클릭 시
     public void crystalClick()
     {
+        if (!audiosource.isPlaying)
+            audiosource.PlayOneShot(audioClip, 1.0f);
+
         subQ1.color = Color.white;
         subQ2.color = Color.white;
         subQ3.color = Color.red;

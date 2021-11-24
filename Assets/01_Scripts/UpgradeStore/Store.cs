@@ -9,6 +9,9 @@ public class Store : MonoBehaviour
     public Text arrowSettingText = null;
     private int arrowSettingGold = 3;
 
+    public AudioSource audiosource;
+    public AudioClip audioClip;
+    public AudioClip audioClip02;
 
     public Text hpText = null;
     public Text hpSettingText = null;
@@ -27,13 +30,16 @@ public class Store : MonoBehaviour
     {
         if (PlayerControlManager.Instance.MyGold < hpSettingGold)
         {
+            audiosource.PlayOneShot(audioClip02, 1.0f);
             string message = "골드가 부족합니다!";
 
             FloatingTextManager.instance.CreateFloatingGoldText(this.transform.position, message);
         }
 
-        if (fakeHealth < 100 && PlayerControlManager.Instance.MyGold >= hpSettingGold) 
+        if (fakeHealth < 100 && PlayerControlManager.Instance.MyGold >= hpSettingGold)
         {
+            audiosource.PlayOneShot(audioClip, 1.0f);
+
             _scrHP.MyMaxHP = _scrHP.MyMaxHP + 10;
             PlayerControlManager.Instance.MyCurHP = PlayerControlManager.Instance.MyCurHP + 10;
             fakeHealth = fakeHealth + 10;
@@ -53,6 +59,7 @@ public class Store : MonoBehaviour
     {
         if (PlayerControlManager.Instance.MyGold < damageSettingGold)
         {
+            audiosource.PlayOneShot(audioClip02, 1.0f);
             string message = "골드가 부족합니다!";
 
             FloatingTextManager.instance.CreateFloatingGoldText(this.transform.position, message);
@@ -60,6 +67,8 @@ public class Store : MonoBehaviour
         
         if (fakeDamage < 100 && PlayerControlManager.Instance.MyGold >= damageSettingGold)
         {
+            audiosource.PlayOneShot(audioClip, 1.0f);
+
             Arrow.Instance._damage = Arrow.Instance._damage + 10;
             fakeDamage = fakeDamage + 10;
 
@@ -76,6 +85,7 @@ public class Store : MonoBehaviour
     {
         if (PlayerControlManager.Instance.MyGold < arrowSettingGold)
         {
+            audiosource.PlayOneShot(audioClip02, 1.0f);
             string message = "골드가 부족합니다!";
 
             FloatingTextManager.instance.CreateFloatingGoldText(this.transform.position, message);
@@ -83,6 +93,8 @@ public class Store : MonoBehaviour
 
         if (PlayerControlManager.Instance.MyArrow < 5 && PlayerControlManager.Instance.MyGold >= arrowSettingGold)
         {
+            audiosource.PlayOneShot(audioClip, 1.0f);
+
             PlayerControlManager.Instance.MyArrow = PlayerControlManager.Instance.MyArrow + 1;
 
             PlayerControlManager.Instance.MyGold = PlayerControlManager.Instance.MyGold - arrowSettingGold;

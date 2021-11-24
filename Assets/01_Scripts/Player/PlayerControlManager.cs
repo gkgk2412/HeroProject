@@ -9,6 +9,8 @@ public class PlayerControlManager: MonoBehaviour
 
     private float horizontalMove;
     private float verticalMove;
+    private bool isPlay = false;
+    private bool isJump = false;
 
     /*--------------------------------------------캐릭터 속성값--------------------------------------------------*/
     public float speed;                     // 캐릭터에게 실제로 적용되는 스피드
@@ -20,6 +22,12 @@ public class PlayerControlManager: MonoBehaviour
     public float jumpSpeed;                 // 캐릭터 점프 힘.
 
     public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
+
+    public AudioSource audiosource;
+    public AudioSource audiosource02;
+    public AudioClip audioClip;
+    public AudioClip audioClip2;
+    public AudioClip audioClip3;
 
     [SerializeField]
     private int gold;                       // 캐릭터가 가진 골드
@@ -128,6 +136,7 @@ public class PlayerControlManager: MonoBehaviour
             { 
                 if(GameManager.Instance.CheckPlayerState() != "LIVE_ATTACK")
                 {
+                    isJump = false;
                     PlayerAnimationController.Instance.ChangeAnimationState("JUMP", false);
 
                     Move();
@@ -160,9 +169,26 @@ public class PlayerControlManager: MonoBehaviour
                 controller.Move(MoveDir * Time.deltaTime);
 
                 //조금이라도 움직임이 있을 경우 애니메이션 재생
-                PlayerAnimationController.Instance.ChangeAnimationState("WALK", true);
+                PlayerAnimationController.Instance.ChangeAnimationState("WALK", true); 
+                
+                if(MoveDir.magnitude > 0.1f)
+                {
+                    StartCoroutine(WalkSoundPlay());
+                }
             }
         }
+    }
+
+    public IEnumerator WalkSoundPlay()
+    {
+        if (!audiosource02.isPlaying && !isPlay && !isJump)
+        {
+            audiosource02.PlayOneShot(audioClip3, 1.5f);
+            isPlay = true;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        isPlay = false;
     }
 
     public void SetCommand()
@@ -189,13 +215,15 @@ public class PlayerControlManager: MonoBehaviour
         //왼쪽 shift 키를 누르면 속도 올리기
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            btnRun.Execute();          
+            btnRun.Execute();
+            audiosource02.pitch = 1.4f;
         }
 
         else
         {
             speed = moveSpeed;
             PlayerAnimationController.Instance.ChangeAnimationState("NOTRUN", true);
+            audiosource02.pitch = 1.1f;
 
             //스테미너 올라가기
             if (curStamina <= 100)
@@ -235,7 +263,11 @@ public class PlayerControlManager: MonoBehaviour
         // 캐릭터 점프
         if (Input.GetKey(KeyCode.Space))
         {
+            isJump = true;
             btnJump.Execute();
+
+            if (!audiosource.isPlaying)
+                audiosource.PlayOneShot(audioClip, 1.0f);
         }
     }
 
@@ -243,7 +275,9 @@ public class PlayerControlManager: MonoBehaviour
     {
         //화살쏘기
         if(Input.GetKeyUp(KeyCode.E) && GameManager.Instance.CheckPlayerState() != "LIVE_ATTACK")
-        {           
+        {
+            audiosource.PlayOneShot(audioClip2, 1.0f);
+
             btnAttack.Execute();
             Invoke("AttackEndEvent", 0.5f);
             ArrowSpawner.Instance.DestroyArrow();

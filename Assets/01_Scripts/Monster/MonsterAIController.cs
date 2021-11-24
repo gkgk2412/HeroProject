@@ -9,6 +9,9 @@ public class MonsterAIController : Monster
     NavMeshAgent agent;
     Animator Mon_animator;
 
+    public AudioSource audiosource;
+    public AudioClip audioClip;
+
     private bool isCheckAttackDamage = false;
 
     #region Internal-------------------------- # Please close # --------------------------
@@ -388,6 +391,8 @@ public class MonsterAIController : Monster
     {
         if (other.gameObject.tag == "spear" || other.gameObject.tag == "spear2"|| other.gameObject.tag == "spear3"|| other.gameObject.tag == "spear4"|| other.gameObject.tag == "spear5")
         {
+            if (!audiosource.isPlaying)
+                audiosource.PlayOneShot(audioClip, 1.0f);
             isHit = true;
             SetDamage(Arrow.Instance._damage);
             HpFill.fillAmount = (float)currentHp/hp;

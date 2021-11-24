@@ -30,6 +30,8 @@ public class CurtainController : MonoBehaviour
     {
         while (true)
         {
+            Bgm.Instance.VolumnDown(1);
+
             if (curtainPanel[0].transform.position.y > Screen.height + onValue)
             {
                 curtainPanel[0].transform.position = new Vector3(curtainPanel[0].transform.position.x, curtainPanel[0].transform.position.y - 1, curtainPanel[0].transform.position.z);

@@ -49,6 +49,8 @@ public class BossController : Boss
 
     private void CommonUpdate()
     {
+        bool once = false;
+
         if (this.transform.position.y <= 9.8f)
             this.transform.position = new Vector3(this.transform.position.x, 9.8f, this.transform.position.z);
 
@@ -62,6 +64,11 @@ public class BossController : Boss
         //땅에 닿으면
         if (isGround)
         {
+            if (!once)
+            {
+                Bgm.Instance.ChangeBgm(1);
+                once = true;
+            }
             //약 1초 후에 보스 체력바 등 UI 띄우기
             Invoke("ShowUI", 1.0f);
         }
@@ -138,22 +145,10 @@ public class BossController : Boss
                         isSkill3_do = false;
 
                         if (isGround)
+                        {
                             LookPlayer();
-
-                        if (Input.GetKeyDown(KeyCode.W))
-                        {
-                            ChangeState(BossState.SKILL01_ROCK_THROW);
-                        }
-
-                        if (Input.GetKeyDown(KeyCode.Q))
-                        {
-                            ChangeState(BossState.SKILL02_BODY_BlOW);
-                        }
-
-                        if (Input.GetKeyDown(KeyCode.R))
-                        {
-                            ChangeState(BossState.SKILL03_JUMP);
-                        }
+                            StartCoroutine(Think());
+                        }                        
                     }
                     break;
 
@@ -171,6 +166,8 @@ public class BossController : Boss
         {
             case StateFlow.ENTER:
                 {
+                    StopAllCoroutines();
+
                     _bossAnimator.SetBool("isIdle", false);
                     _bossAnimator.SetBool("isThrow", true);
 
@@ -201,6 +198,7 @@ public class BossController : Boss
         {
             case StateFlow.ENTER:
                 {
+                    StopAllCoroutines();
                 }
                 break;
 
@@ -244,6 +242,7 @@ public class BossController : Boss
         {
             case StateFlow.ENTER:
                 {
+                    StopAllCoroutines();
                 }
                 break;
 
@@ -275,16 +274,18 @@ public class BossController : Boss
                 {
                     MonsterDie.Instance.UpdateDictionary(MonsterDie.Instance.DieMonsterDic, this.gameObject.name, 1);
                     QuestLog.Instance.UpdateSelected();
-
                     isBossDie = true;
+
+                    Invoke("SoundChange", 2.0f);
                 }
                 break;
 
             case StateFlow.UPDATE:
                 {
+                    Bgm.Instance.VolumnDown(2);
                     _CameraController.MyCameraBoss = false;
                     bossRoomWall.isTrigger = true;
-
+                    
                     Destroy(this.gameObject, 5.0f);
                     bossEventPanel.SetActive(false);
                     bossUI.SetActive(false);
@@ -399,5 +400,37 @@ public class BossController : Boss
     public void DmgExploOut()
     {
         isSkill3_Range = false;
+    }
+
+    private IEnumerator Think()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        int randAction = Random.Range(0, 5);
+
+        switch(randAction)
+        {
+            //돌 던지기
+            case 0:
+            case 1:
+                ChangeState(BossState.SKILL01_ROCK_THROW);
+                break;
+
+            //몸통박치기
+            case 2:
+            case 3:
+                ChangeState(BossState.SKILL02_BODY_BlOW);
+                break;
+
+            //점프 공격
+            case 4:
+                ChangeState(BossState.SKILL03_JUMP);
+                break;
+        }
+    }
+
+    private void SoundChange()
+    {
+        Bgm.Instance.ChangeBgm(2);
     }
 }

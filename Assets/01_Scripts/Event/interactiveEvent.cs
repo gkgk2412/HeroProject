@@ -5,6 +5,11 @@ using UnityEngine.Events;
 
 public class interactiveEvent : MonoBehaviour
 {
+    public AudioSource audiosource;
+    public AudioSource audiosource02;
+    public AudioClip audioClip;
+    public AudioClip audioClip02;
+
     public InteractUI _interactUIScr;
     public InteractUI _interactUIScr2;
     public InteractUI _interactUIScr3;
@@ -27,6 +32,9 @@ public class interactiveEvent : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.F))
             {
+                if (!audiosource.isPlaying)
+                    audiosource.PlayOneShot(audioClip, 1.0f);
+
                 ExecuteBoard();
             }
         }
@@ -35,6 +43,12 @@ public class interactiveEvent : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.F))
             {
+                if (!audiosource.isPlaying)
+                    audiosource.PlayOneShot(audioClip, 1.0f);
+
+                if (!audiosource02.isPlaying)
+                    audiosource02.PlayOneShot(audioClip02, 1.0f);
+
                 ExecuteKing();
             }
         }
@@ -43,6 +57,9 @@ public class interactiveEvent : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.F))
             {
+                if (!audiosource.isPlaying)
+                    audiosource.PlayOneShot(audioClip, 1.0f);
+
                 ExecuteStore();
             }
         }

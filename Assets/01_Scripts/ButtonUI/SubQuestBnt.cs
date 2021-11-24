@@ -13,6 +13,9 @@ public class SubQuestBnt : MonoBehaviour
     public UnityEvent _subQuest02Event;
     public UnityEvent _subQuest03Event;
 
+    public AudioSource audiosource;
+    public AudioClip audioClip;
+
     public void AcceptSubQuest()
     {
         //서브퀘스트 수락함
@@ -20,18 +23,24 @@ public class SubQuestBnt : MonoBehaviour
         {
             EventSub01();
             GameManager.Instance.SetsubQuestArray(0, true);
+
+            audiosource.PlayOneShot(audioClip, 1.0f);
         }
 
         if (_subScr.GetCurrentNum() == 2)
         {
             EventSub02();
             GameManager.Instance.SetsubQuestArray(1, true);
+
+            audiosource.PlayOneShot(audioClip, 1.0f);
         }
 
         if (_subScr.GetCurrentNum() == 3)
         {
             EventSub03();
             GameManager.Instance.SetsubQuestArray(2, true);
+
+            audiosource.PlayOneShot(audioClip, 1.0f);
         }
     }
 

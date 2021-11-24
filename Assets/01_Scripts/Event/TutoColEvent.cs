@@ -8,8 +8,12 @@ public class TutoColEvent : MonoBehaviour
 
     private Animator _knightAnim;
     private Animator _knightAnim2;
+    public GameObject MainCamera;
     public GameObject _knight;
     public GameObject _knight2;
+
+    public AudioSource audiosource;
+    public AudioClip audioClip;
 
     public BoxCollider _tutoBoxCol;
 
@@ -25,11 +29,14 @@ public class TutoColEvent : MonoBehaviour
         //메인 퀘스트를 받지 않았을 경우
         if(!GameManager.Instance.GetQuestCheck())
         {
+            if (!audiosource.isPlaying)
+                audiosource.PlayOneShot(audioClip, 1.0f);
+
             string message = "메인 퀘스트를 먼저 받아주세요!";
 
             FloatingTextManager.instance.CreateFloatingText(this.transform.position, message);
 
-            CamShake.Instance.InCameraShake(0.2f, 0.15f);
+            MainCamera.GetComponent<CamShake>().InCameraShake(0.2f, 0.15f);
 
             //플레이어 멈추고, IDLE로 애니메이션 변경
             GameManager.Instance.PlayerStateChange("STOP");

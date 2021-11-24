@@ -6,6 +6,12 @@ using UnityEngine.Events;
 
 public class QuestClearEvent : MonoBehaviour
 {
+    public AudioSource audiosource;
+    public AudioClip audioClip;
+
+    public AudioSource audiosource02;
+    public AudioClip audioClip02;
+
     public UnityEvent cameraEventon;
     public UnityEvent cameraEventoff;
     public UnityEvent Uioff;
@@ -47,7 +53,6 @@ public class QuestClearEvent : MonoBehaviour
     {
         _clearTxt.SetActive(true);
         _GoldBnt.SetActive(true);
-
     } 
     
     public void ClearTextOff()
@@ -64,6 +69,8 @@ public class QuestClearEvent : MonoBehaviour
         //해당 퀘스트가 깨진 적이 없으면
         if (!quest.MyClear)
         {
+            audiosource.PlayOneShot(audioClip, 1.0f);
+
             //해당 퀘스트가 가진 골드..
             PlayerControlManager.Instance.MyGold += QuestLog.Instance.QuestGold;
 
@@ -86,6 +93,9 @@ public class QuestClearEvent : MonoBehaviour
     {
         int i = -1;
         CameraEventOn();
+
+        if (!audiosource02.isPlaying)
+            audiosource02.PlayOneShot(audioClip02, 1.0f);
 
         //보스방 막는 콜라이더 삭제
         BossCol.SetActive(false);
