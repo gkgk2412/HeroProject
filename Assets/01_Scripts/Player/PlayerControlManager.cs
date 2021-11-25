@@ -21,7 +21,7 @@ public class PlayerControlManager: MonoBehaviour
     public float curStamina;                // 캐릭터의 스태미나
     public float jumpSpeed;                 // 캐릭터 점프 힘.
 
-    public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.
+    public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.                      
 
     public AudioSource audiosource;
     public AudioSource audiosource02;
@@ -37,7 +37,7 @@ public class PlayerControlManager: MonoBehaviour
     [SerializeField]
     private float curHealth;                // 캐릭터의 체력
     /*-----------------------------------------------------------------------------------------------------------*/
-
+    ObjectPooler objectPooler;
     CommandKey btnJump, btnRun, btnAttack;
 
     private static PlayerControlManager instance = null;
@@ -54,6 +54,7 @@ public class PlayerControlManager: MonoBehaviour
             return instance;
         }
     }
+
 
     public int MyArrow
     {
@@ -119,6 +120,7 @@ public class PlayerControlManager: MonoBehaviour
         speed = moveSpeed;
         MoveDir = Vector3.zero;
         controller = GetComponent<CharacterController>();
+        objectPooler = ObjectPooler.Instance;
 
         SetCommand();
     }
@@ -178,6 +180,7 @@ public class PlayerControlManager: MonoBehaviour
             }
         }
     }
+
 
     public IEnumerator WalkSoundPlay()
     {
@@ -286,31 +289,31 @@ public class PlayerControlManager: MonoBehaviour
             {
                 case 1:
                     {
-                        Invoke("ArrowEvent", 0.15f);
+                        Invoke("ArrowEvent", 0.10f);
                         break;
                     }
 
                 case 2:
                     {
-                        Invoke("Arrow2Event", 0.15f);
+                        Invoke("Arrow2Event", 0.10f);
                         break;
                     }
 
                 case 3:
                     {
-                        Invoke("Arrow3Event", 0.15f);
+                        Invoke("Arrow3Event", 0.10f);
                         break;
                     }
 
                 case 4:
                     {
-                        Invoke("Arrow4Event", 0.15f);
+                        Invoke("Arrow4Event", 0.10f);
                         break;
                     }
 
                 case 5:
                     {
-                        Invoke("Arrow5Event", 0.15f);
+                        Invoke("Arrow5Event", 0.10f);
                         break;
                     }
             }

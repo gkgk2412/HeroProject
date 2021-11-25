@@ -14,7 +14,8 @@ public class PlayerAutoMoveEditor : Editor
 		CustomEditorList.Show(serializedObject.FindProperty("rotatePoints"), EditorListOption.ListSize | EditorListOption.ListLabel | EditorListOption.Buttons);
 		CustomEditorList.Show(serializedObject.FindProperty("_bossEvnet02"));
 		CustomEditorList.Show(serializedObject.FindProperty("bossRoomWall"));
-
-		serializedObject.ApplyModifiedProperties();
+		CustomEditorList.Show(serializedObject.FindProperty("audiosource"));
+		CustomEditorList.Show(serializedObject.FindProperty("audioClip"));
+	serializedObject.ApplyModifiedProperties();
 	}
 }

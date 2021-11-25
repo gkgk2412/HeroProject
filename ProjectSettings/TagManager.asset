@@ -19,6 +19,7 @@ TagManager:
   - Rock
   - StopBoss_damage
   - Range
+  - dust
   layers:
   - Default
   - TransparentFX

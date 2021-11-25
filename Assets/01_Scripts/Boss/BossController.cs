@@ -5,10 +5,22 @@ using UnityEngine.AI;
 
 public class BossController : Boss
 {
+    public AudioSource audiosource;
+    public AudioSource audiosource02;
+    public AudioSource audiosource03;
+    public AudioSource audiosource04;
+    public AudioClip audioClip;
+    public AudioClip audioClip02;
+    public AudioClip audioClip03;
+    public AudioClip audioClip04;
+    public AudioClip audioClip05;
+    public AudioClip audioClip06;
+
     private Animator _bossAnimator;
     private Rigidbody rb;
 
     public GameObject MainCamera;
+    public GameObject EffectDust;
 
     public GameObject bossUI;
     public GameObject bossEventPanel;
@@ -23,6 +35,8 @@ public class BossController : Boss
     private bool isBossDie = false;
 
     private bool isSkill3_Range = false;
+    private bool onceDie = false;
+    private bool onceRun = false;
 
 
     #region Internal-------------------------- # Please close # --------------------------
@@ -141,8 +155,11 @@ public class BossController : Boss
 
                 case StateFlow.UPDATE:
                     {
+                        rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+
                         isSkill2_do = false;
                         isSkill3_do = false;
+                        onceRun = false;
 
                         if (isGround)
                         {
@@ -173,6 +190,9 @@ public class BossController : Boss
 
                     //스킬실행
                     BezierCurve.Instance.SkillRock();
+
+                    if (!audiosource.isPlaying)
+                        audiosource.PlayOneShot(audioClip, 1.0f);
                 }
                 break;
 
@@ -204,6 +224,8 @@ public class BossController : Boss
 
             case StateFlow.UPDATE:
                 {
+                    rb.constraints = RigidbodyConstraints.FreezePositionY;
+
                     //1초 동안 이펙트 등 띄우고 다 띄워지면 아래부분 실행하기
                     //보스가 현재 바라보고 있는 위치와 그 끝.. 직선으로.. 이펙트 표시
                     _bossAnimator.SetBool("isIdle", false);
@@ -220,11 +242,17 @@ public class BossController : Boss
                     //직선으로 뛰기
                     if(isSkill2_do)
                     {
-                        Vector3 movement = transform.forward.normalized * moveSpeed * Time.deltaTime;
+                        Vector3 movement = transform.forward * moveSpeed * Time.deltaTime;
                         rb.MovePosition(transform.position + movement);
                         
                         //범위 끈다.
                         Projector.SetActive(false);
+
+                        if (!audiosource.isPlaying && !onceRun)
+                        {
+                            audiosource.PlayOneShot(audioClip03, 1.0f);
+                            onceRun = true;
+                        }
                     }                    
                 }
                 break;
@@ -272,6 +300,12 @@ public class BossController : Boss
         {
             case StateFlow.ENTER:
                 {
+                    if (!audiosource04.isPlaying && !onceDie)
+                    {
+                        audiosource04.PlayOneShot(audioClip06, 2.0f);
+                        onceDie = true;
+                    }
+                    
                     MonsterDie.Instance.UpdateDictionary(MonsterDie.Instance.DieMonsterDic, this.gameObject.name, 1);
                     QuestLog.Instance.UpdateSelected();
                     isBossDie = true;
@@ -361,6 +395,9 @@ public class BossController : Boss
 
         if (isSkill2_do && other.gameObject.tag == "StopBoss_damage")
         {
+            if (!audiosource03.isPlaying)
+                audiosource03.PlayOneShot(audioClip05, 3.0f); 
+
             //idle로 복귀
             ChangeState(BossState.IDLE);
 
@@ -369,6 +406,8 @@ public class BossController : Boss
 
         if (other.gameObject.tag == "spear" || other.gameObject.tag == "spear2" || other.gameObject.tag == "spear3" || other.gameObject.tag == "spear4" || other.gameObject.tag == "spear5")
         {
+            audiosource02.PlayOneShot(audioClip04, 0.7f);
+
             SetDamage(1.0f);
             boss_hp.Instance._HPBar.fillAmount = (float)b_CurrentHp / b_hp;
         }
@@ -381,8 +420,15 @@ public class BossController : Boss
             //땅에 닿으면 진동
             MainCamera.GetComponent<CamShake>().InCameraShake(0.5f, 0.3f);
 
+            if (!audiosource.isPlaying)
+                audiosource.PlayOneShot(audioClip02, 1.0f);
+
+            EffectDust.transform.position = this.transform.position;
+            EffectDust.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            EffectDust.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+
             //플레이어가 범위안에 있으면 데미지 + 튕겨나가기
-            if(isSkill3_Range)
+            if (isSkill3_Range)
             {
                 DmgAttack(30.0f);
                 isSkill3_Range = false;

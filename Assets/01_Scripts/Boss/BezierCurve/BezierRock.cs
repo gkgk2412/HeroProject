@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BezierRock : MonoBehaviour
 {
+    public AudioSource audiosource;
+    public AudioClip audioClip02;
+
     [Range(0, 1)]
     public float speed;
 
@@ -50,11 +53,17 @@ public class BezierRock : MonoBehaviour
         //캐릭터나 바닥에 닿으면 베지어 끝내기
         if(other.gameObject.tag == "Player")
         {
+            if (!audiosource.isPlaying && isBezier)
+                audiosource.PlayOneShot(audioClip02, 1.0f);
+
             isBezier = false;
         }
 
         if (other.gameObject.tag == "Bottom")
         {
+            if (!audiosource.isPlaying && isBezier)
+                audiosource.PlayOneShot(audioClip02, 1.0f);
+
             isBezier = false;
             this.transform.GetChild(1).GetComponent<BoxCollider>().enabled = false;
         }

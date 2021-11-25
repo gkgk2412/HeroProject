@@ -10,9 +10,12 @@ public class MonsterAIController : Monster
     Animator Mon_animator;
 
     public AudioSource audiosource;
+    public AudioSource audiosource2;
     public AudioClip audioClip;
+    public AudioClip audioClip2;
 
     private bool isCheckAttackDamage = false;
+    private bool once = false;
 
     #region Internal-------------------------- # Please close # --------------------------
     private enum StateFlow
@@ -233,21 +236,17 @@ public class MonsterAIController : Monster
                     ChangeAgentComponent("isAttack");
                     Mon_animator.SetBool("isTrace", false);
                     Mon_animator.SetBool("isAttack", true);
-
-                    StartCoroutine(WaitAttackDamageCoroutine());
                 }
                 break;
 
             case StateFlow.UPDATE:
                 {
-                    if (Mon_animator.GetCurrentAnimatorStateInfo(0).IsName("atk3") &&  Mon_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f)
-                    {
-                        isCheckAttackDamage = true;
-                    }
+                    StartCoroutine(WaitAttackDamageCoroutine());
 
                     //플레이어와의 거리가 멀어진 경우, TRACE으로 상태전환
                     if (Vector3.Distance(Player.position, this.transform.position) >= 1.7f)
                     {
+                        StopAllCoroutines();
                         agent.isStopped = false;
                         ChangeState(MonsterState.TRACE);
                     }
@@ -393,6 +392,7 @@ public class MonsterAIController : Monster
         {
             if (!audiosource.isPlaying)
                 audiosource.PlayOneShot(audioClip, 1.0f);
+
             isHit = true;
             SetDamage(Arrow.Instance._damage);
             HpFill.fillAmount = (float)currentHp/hp;
@@ -403,8 +403,6 @@ public class MonsterAIController : Monster
         }
     }
 
-
-
     IEnumerator WaitCoroutine()
     {
         yield return new WaitForSeconds(4f);
@@ -414,18 +412,23 @@ public class MonsterAIController : Monster
 
     IEnumerator WaitAttackDamageCoroutine()
     {
-        while(true)
+        yield return new WaitForSeconds(1.0f);
+
+        if (!isCheckAttackDamage)
         {
-            if(isCheckAttackDamage)
+            if (!once)
             {
-                DmgAttack();
-                yield return new WaitForSeconds(1.25f);
+                audiosource2.PlayOneShot(audioClip2, 0.4f);
+                once = true;
             }
 
-            else
-            {
-                yield return null;
-            }
+            DmgAttack();
+            isCheckAttackDamage = true;
+
+            yield return new WaitForSeconds(1.25f);
+
+            isCheckAttackDamage = false;
+            once = false;
         }
     }
 

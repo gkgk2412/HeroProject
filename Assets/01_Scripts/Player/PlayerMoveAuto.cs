@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class PlayerMoveAuto : MonoBehaviour
 {
+    public AudioSource audiosource;
+    public AudioClip audioClip;
+
     public UnityEvent _bossEvnet02;
     public BoxCollider bossRoomWall;
 
@@ -13,6 +16,8 @@ public class PlayerMoveAuto : MonoBehaviour
     public Vector3[] wayPoints;         // 이동포인트 배열
     [HideInInspector]
     public Vector3[] rotatePoints;     // 회전포인트 배열
+
+    private bool isPlay = false;
 
     Animator pAnimator;
 
@@ -37,6 +42,8 @@ public class PlayerMoveAuto : MonoBehaviour
 
         while (true)
         {
+            StartCoroutine(WalkSoundPlay());
+
             /*경로 이동 및 회전*/
             AIMove.Instance.wayPoint(wayPoints, this.gameObject, 1.0f);
             AIMove.Instance.RotatePoint(wayPoints, rotatePoints, this.gameObject, 8.0f);
@@ -58,6 +65,18 @@ public class PlayerMoveAuto : MonoBehaviour
         }
     }
 
+    public IEnumerator WalkSoundPlay()
+    {
+        if (!audiosource.isPlaying && !isPlay)
+        {
+            audiosource.PlayOneShot(audioClip, 1.5f);
+            isPlay = true;
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        isPlay = false;
+    }
+
     private void WaitFadeOut()
     {
         FadeController.Instance.FadeOut(2.0f, null);
@@ -68,6 +87,7 @@ public class PlayerMoveAuto : MonoBehaviour
     {
         _bossEvnet02.Invoke();
     }
+
 
 
     #region Internal-------------------------- #  ABOUT GIZMO  # --------------------------

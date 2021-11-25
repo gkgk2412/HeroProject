@@ -5,10 +5,17 @@ using UnityEngine.Events;
 
 public class SubCamera : MonoBehaviour
 {
+    public AudioSource audiosource;
+    public AudioSource audiosource02;
+    public AudioClip audioClip02;
+    public AudioClip audioClip;
+
     public CameraController _CameraController;
 
     public GameObject MainCamera;
     public GameObject boss;
+    public GameObject bossIntroduce;
+    public GameObject EffectDust;
 
     public Transform target;
     public Transform target2;
@@ -22,6 +29,8 @@ public class SubCamera : MonoBehaviour
     bool isTriggerFirstEvent = false;
     bool isOnce = false;
     bool Once = false;
+    bool onceSound = false;
+
 
     Camera _camera;
     Animator boss_ani;
@@ -98,8 +107,22 @@ public class SubCamera : MonoBehaviour
     {
         deltaTime += Time.deltaTime;
 
-        if(deltaTime < 0.5f)        
+        if(deltaTime < 0.5f)
+        {
+            if (!audiosource.isPlaying && !onceSound)
+            {
+                audiosource.PlayOneShot(audioClip02, 1.0f);
+                onceSound = true;
+            }
+
             CamShake.Instance.InCameraShake(0.05f, 0.5f);
+
+            EffectDust.transform.position = boss.transform.position;
+            EffectDust.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            EffectDust.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+        }
+
+        audiosource.volume -= 0.01f;
     }
 
     public void WaitRot()
@@ -115,6 +138,8 @@ public class SubCamera : MonoBehaviour
     {
         if(!isOnce)
         {
+            bossIntroduce.SetActive(true);
+            audiosource02.PlayOneShot(audioClip, 1.0f);
             boss_ani.SetBool("isStartEvent", true);
             isOnce = true;
         }
@@ -123,6 +148,7 @@ public class SubCamera : MonoBehaviour
 
     public void EventCurtainOff()
     {
+        bossIntroduce.SetActive(false);
         _curtainOff.Invoke();
         boss_ani.SetBool("isStartEvent", false);
         isTriggerBoss02 = false;
