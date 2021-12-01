@@ -10,6 +10,8 @@ public class PlayerColliderEvent : MonoBehaviour
     public UnityEvent _skillThree;
     public UnityEvent _skillThreeOut;
 
+    public GameObject _gameEnd;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "TutoEnterCol")
@@ -20,6 +22,25 @@ public class PlayerColliderEvent : MonoBehaviour
         if (other.gameObject.name == "BossEventCol")
         {
             BossColEvent();
+        }
+        
+        if (other.gameObject.tag == "potal")
+        {
+            StartCoroutine(VolumeDown());
+            _gameEnd.SetActive(true);
+            FadeController.Instance.FadeIn(3.0f, null);
+            GameManager.Instance.PlayerStateChange("STOP");
+            PlayerAnimationController.Instance.ChangeAnimationState("IDLE", false);
+        }
+    }
+
+    private IEnumerator VolumeDown()
+    {
+        while(true)
+        {
+            Bgm.Instance.VolumnDown(3);
+
+            yield return null;
         }
     }
 

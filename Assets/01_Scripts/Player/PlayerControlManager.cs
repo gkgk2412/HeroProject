@@ -21,7 +21,10 @@ public class PlayerControlManager: MonoBehaviour
     public float curStamina;                // 캐릭터의 스태미나
     public float jumpSpeed;                 // 캐릭터 점프 힘.
 
-    public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향.                      
+    public Vector3 MoveDir;                 // 캐릭터의 움직이는 방향. 
+    
+    public Transform ParticlePos;    
+    private GameObject ParticleDust;
 
     public AudioSource audiosource;
     public AudioSource audiosource02;
@@ -181,6 +184,12 @@ public class PlayerControlManager: MonoBehaviour
         }
     }
 
+    public void Make_Dust()
+    {
+        //특정위치에 먼지 파티클을 생성..
+        ParticleDust = ObjectPooler.Instance.spawnFromPool("dust", ParticlePos.position, this.transform.rotation);
+        ParticleDust.GetComponent<ParticleSystem>().Play();
+    }
 
     public IEnumerator WalkSoundPlay()
     {

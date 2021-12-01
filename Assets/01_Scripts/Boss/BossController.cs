@@ -5,22 +5,29 @@ using UnityEngine.AI;
 
 public class BossController : Boss
 {
+    private GameObject go;
+    private bool onceEffect = false;
+
     public AudioSource audiosource;
     public AudioSource audiosource02;
     public AudioSource audiosource03;
     public AudioSource audiosource04;
+    public AudioSource audiosource05;
     public AudioClip audioClip;
     public AudioClip audioClip02;
     public AudioClip audioClip03;
     public AudioClip audioClip04;
     public AudioClip audioClip05;
     public AudioClip audioClip06;
+    public AudioClip audioClip07;
 
     private Animator _bossAnimator;
     private Rigidbody rb;
 
     public GameObject MainCamera;
     public GameObject EffectDust;
+    public GameObject explosionEffect;
+    public GameObject potal;
 
     public GameObject bossUI;
     public GameObject bossEventPanel;
@@ -304,7 +311,7 @@ public class BossController : Boss
                     {
                         audiosource04.PlayOneShot(audioClip06, 2.0f);
                         onceDie = true;
-                    }
+                    } 
                     
                     MonsterDie.Instance.UpdateDictionary(MonsterDie.Instance.DieMonsterDic, this.gameObject.name, 1);
                     QuestLog.Instance.UpdateSelected();
@@ -319,8 +326,10 @@ public class BossController : Boss
                     Bgm.Instance.VolumnDown(2);
                     _CameraController.MyCameraBoss = false;
                     bossRoomWall.isTrigger = true;
-                    
-                    Destroy(this.gameObject, 5.0f);
+
+                    Invoke("WaitScale", 1.5f);
+
+                    Destroy(this.gameObject, 8.0f);
                     bossEventPanel.SetActive(false);
                     bossUI.SetActive(false);
                 }
@@ -331,6 +340,31 @@ public class BossController : Boss
                 }
                 break;
         }
+    }
+
+    private void WaitScale()
+    {
+        //이펙트 출현
+        if (!onceEffect)
+        {
+            if (!audiosource05.isPlaying)
+                audiosource05.PlayOneShot(audioClip07, 1.5f);
+
+            go = Instantiate(explosionEffect, transform.position, Quaternion.identity) as GameObject;
+
+            Invoke("WaitPotal", 3.3f);
+            onceEffect = true;
+        }
+
+        if (transform.localScale.x >= 0)
+        {
+            transform.localScale = new Vector3(transform.localScale.x - 0.03f, transform.localScale.y - 0.03f, transform.localScale.z - 0.03f);
+        }
+    }
+
+    private void WaitPotal()
+    {
+        GameObject go2 = Instantiate(potal,new Vector3(go.transform.position.x, go.transform.position.y + 1.5f, go.transform.position.z), Quaternion.identity) as GameObject;
     }
 
     private void ShowUI()

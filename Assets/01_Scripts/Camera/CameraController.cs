@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour
         {
             yMove = 3.5f;
             zMove = 5.0f;
-            xRot = 30.0f;
+            xRot = 25.0f;
 
             //position 이동
             float TargetWidth = Mathf.SmoothDamp(transform.position.x, target.position.x + xMove, ref xVelocity, smoothTime);

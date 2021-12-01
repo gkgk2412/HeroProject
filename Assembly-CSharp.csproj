@@ -100,6 +100,7 @@
     <Compile Include="Assets\01_Scripts\Event\interactiveEvent.cs" />
     <Compile Include="Assets\01_Scripts\FPS.cs" />
     <Compile Include="Assets\01_Scripts\Fade\CurtainController.cs" />
+    <Compile Include="Assets\01_Scripts\Fade\EndPanel.cs" />
     <Compile Include="Assets\01_Scripts\Fade\FadeController.cs" />
     <Compile Include="Assets\01_Scripts\FloatingText\FloatingTextManager.cs" />
     <Compile Include="Assets\01_Scripts\FloatingText\FloatringText.cs" />
@@ -110,11 +111,12 @@
     <Compile Include="Assets\01_Scripts\Monster\MonsterDie.cs" />
     <Compile Include="Assets\01_Scripts\Monster\MonsterHP.cs" />
     <Compile Include="Assets\01_Scripts\Monster\MonsterSpawner.cs" />
+    <Compile Include="Assets\01_Scripts\MouseChange.cs" />
     <Compile Include="Assets\01_Scripts\Player\AIMove.cs" />
     <Compile Include="Assets\01_Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\01_Scripts\Player\PlayerControlManager.cs" />
     <Compile Include="Assets\01_Scripts\Player\PlayerMoveAuto.cs" />
-    <Compile Include="Assets\01_Scripts\Player\dustParticle.cs" />
+    <Compile Include="Assets\01_Scripts\Player\SkyWalkMove.cs" />
     <Compile Include="Assets\01_Scripts\Quest\Quest.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestAlarm.cs" />
     <Compile Include="Assets\01_Scripts\Quest\QuestGiver.cs" />
@@ -135,6 +137,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\03_Resources\SD_Project\UnityChanShader\Shader\CharaOutline.cginc" />
     <None Include="Assets\03_Resources\SD_Project\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
+    <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
     <None Include="Assets\03_Resources\SD_Project\UnityChanShader\Shader\Unitychan_chara_hada.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />

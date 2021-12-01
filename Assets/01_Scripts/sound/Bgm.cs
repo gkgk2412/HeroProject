@@ -58,6 +58,15 @@ public class Bgm : MonoBehaviour
 
             if (_audioSource02.volume < 0)
                 _audioSource02.volume = 0.0f;
+        } 
+        
+        if (number == 3)
+        {
+            if (_audioSource03.volume >= 0)
+                _audioSource03.volume -= 0.01f;
+
+            if (_audioSource03.volume < 0)
+                _audioSource03.volume = 0.0f;
         }
     }
 }

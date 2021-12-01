@@ -140,7 +140,7 @@ public class MonsterAIController : Monster
                     //몬스터 시야에 발각 || 몬스터가 피격당함
                     if (isSeePlayer || isHit)
                     {
-                        Invoke("WaitChangeToTrace", 0.4f);
+                        Invoke("WaitChangeToTrace", 0.1f);
                     }
                 }
                 break;
